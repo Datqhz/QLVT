@@ -356,7 +356,7 @@ public class Add extends javax.swing.JPanel {
             lblIconname.setIcon(new ImageIcon(getClass().getResource("/cross.png")));
             addStatus = false;
         }else{
-            lblMsp.setText("");
+            lblName.setText("");
             lblIconname.setIcon(new ImageIcon(getClass().getResource("/checked.png")));
             addStatus = true;
         }
