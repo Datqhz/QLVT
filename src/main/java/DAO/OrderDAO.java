@@ -19,7 +19,7 @@ public class OrderDAO {
     
     //Lấy tên VT dùng trong form Tạo đơn
     public String getNameVT(String madon) throws Exception{
-        String sql = "EXCEC get_Name ?";
+        String sql = "{call get_Name_VT(?)}";
         
         try (
             Connection con = DatabaseHelper.openConnection(); 
@@ -70,7 +70,7 @@ public class OrderDAO {
           
             while (rs.next()) {
                 Order temp = new Order();
-                temp.setMaDon(rs.getString(1));
+                temp.setMaDon(chuanhoaMa(rs.getString(1)));
                 temp.setDate(rs.getString(2));
                 temp.setTenKhachHang(rs.getString(3));
                 temp.setListSP(loadCTPX(temp.getMaDon()));
@@ -79,5 +79,44 @@ public class OrderDAO {
             return listOrder;
         }
 
+    }
+     
+//     
+//     public boolean addCTPX(CTSP ct,String MaDon)throws Exception{
+//         String sql = "insert into CTPX(MAPX,MAV,SOLUONG,DONGIA) values (?,?,?,?)";
+//         try (
+//            Connection con = DatabaseHelper.openConnection(); 
+//            PreparedStatement pstm = con.prepareStatement(sql);) {
+//            pstm.setString(1, MaDon);
+//            pstm.setString(2, ct.getMaSP());
+//            pstm.setString(3,Integer.toString(ct.getSoLuong()));
+//            pstm.setString(4,Integer.toString(ct.getGia()));
+//         }
+//         return 
+//     }
+     public void addOrder(Order order)throws Exception{
+         String sql = "insert into PHIEUXUAT(MAPX,NGAY,HOTENKH) values (?,?,?)";
+         String sql1 = "insert into CTPX(MAPX,MAVT,SOLUONG,DONGIA) values (?,?,?,?)";
+        try (
+                Connection con = DatabaseHelper.openConnection();  
+                PreparedStatement pstm = con.prepareStatement(sql);
+                PreparedStatement addCT = con.prepareStatement(sql1);) 
+        {
+            pstm.setString(1, order.getMaDon());
+            pstm.setString(2, order.getDate());
+            pstm.setString(3, order.getTenKhachHang());
+            pstm.executeUpdate();
+            for(CTSP ct : order.getListSP()){
+                addCT.setString(1, order.getMaDon());
+                addCT.setString(2, ct.getMaSP());
+                addCT.setString(3,Integer.toString(ct.getSoLuong()));
+                addCT.setString(4,Integer.toString(ct.getGia()));
+                addCT.executeUpdate();
+            }
+            
+        }
+     }
+     public String chuanhoaMa(String ma){
+        return ma.replaceAll(" ", "");
     }
 }

@@ -3,6 +3,7 @@ package com.dat.component;
 
 
 import com.dat.DialogAdd.Question;
+import com.dat.DialogAdd.QuestionOrder;
 import com.dat.DialogAdd.QuestionUpdate;
 import com.dat.DialogAdd.Success;
 import com.dat.DialogAdd.Warning;
@@ -23,7 +24,8 @@ public class Menu extends javax.swing.JPanel {
     Warning WarningError;
     QuestionUpdate QsU;
     MainForm main;
-    public Menu(MainForm main, Warning WarningError, Question Qs,  Success sc, QuestionUpdate QsU) {
+    QuestionOrder QsO;
+    public Menu(MainForm main, Warning WarningError, Question Qs,  Success sc, QuestionUpdate QsU,QuestionOrder QsO) {
         initComponents();
         this.main = main;
         setOpaque(false);
@@ -33,6 +35,7 @@ public class Menu extends javax.swing.JPanel {
         this.Qs = Qs;
         this.sc = sc;
         this.QsU=QsU;
+        this.QsO=QsO;
     }
     
     @Override
@@ -246,7 +249,7 @@ public class Menu extends javax.swing.JPanel {
         lblWare.setOpaque(false);
         lblInput.setOpaque(false);
         lblCreate.setOpaque(true);
-        main.showForm(new CreateOrder(WarningError,Qs , sc));
+        main.showForm(new CreateOrder(WarningError,QsO , sc));
     }//GEN-LAST:event_lblCreateMouseClicked
 
     private void lblListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListMouseClicked
@@ -266,7 +269,7 @@ public class Menu extends javax.swing.JPanel {
         lblList.setOpaque(false);
         lblAdd.setOpaque(false);
         lblWare.setOpaque(true);
-        main.showForm(new CreateOrder(WarningError,Qs , sc));
+        main.showForm(new CreateOrder(WarningError,QsO , sc));
     }//GEN-LAST:event_lblWareMousePressed
 
     private void lblInputMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInputMousePressed

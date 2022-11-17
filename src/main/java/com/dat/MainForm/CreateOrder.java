@@ -3,7 +3,7 @@ package com.dat.MainForm;
 
 import DAO.OrderDAO;
 import DAO.ProductDAO;
-import com.dat.DialogAdd.Question;
+import com.dat.DialogAdd.QuestionOrder;
 import com.dat.DialogAdd.Success;
 import com.dat.DialogAdd.Warning;
 import com.dat.Order.CTSP;
@@ -28,14 +28,19 @@ public class CreateOrder extends javax.swing.JPanel {
     private List<CTSP> listCTSP;
     private boolean ttAdd= false;
     Warning WarningError;
-    Question Qs ;
     Success success;
     boolean addStatus=false;
-    
-    public CreateOrder( Warning WarningError,Question Qs, Success success) {
+    QuestionOrder Qs;
+public void showList(){
+    for(Order or:listOrder){
+        System.out.print(or.getMaDon());
+    }
+}
+    public CreateOrder( Warning WarningError,QuestionOrder Qs, Success success) {
         initComponents();
         initTable();
         getListSP();
+        getListOrder();
         fillToTable();
         btnAdd.setEnabled(false);
         btnRemove.setEnabled(false);
@@ -55,7 +60,7 @@ public class CreateOrder extends javax.swing.JPanel {
     }
     
     public String chuanhoaMa(String ma){
-        return ma.replaceAll(" ", "");
+        return ma.replaceAll(" ", "").toUpperCase();
     }
     
     
@@ -63,6 +68,15 @@ public class CreateOrder extends javax.swing.JPanel {
         try{
             ProductDAO dao = new ProductDAO();
             listSP=dao.loadListProduct();   
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void getListOrder(){
+        try{
+            OrderDAO dao = new OrderDAO();
+            listOrder=dao.loadListOrder();   
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -85,9 +99,8 @@ public class CreateOrder extends javax.swing.JPanel {
             e.printStackTrace();
         }
         
-        Order  t = this.listOrder.stream().filter(pr -> pr.getMaDon().equals(madon)).findFirst().orElse(null);
-        if(t == null)return false;
-        return true;
+        Order t = this.listOrder.stream().filter(pr -> pr.getMaDon().equals(madon)).findFirst().orElse(null);
+        return t != null;
     }
     
     public String chuanhoaTen(String ma){
@@ -99,11 +112,6 @@ public class CreateOrder extends javax.swing.JPanel {
         SimpleDateFormat g = new SimpleDateFormat("yyyy-MM-dd");
         String date = g.format(dateNgayLap.getDate());
         return date;
-    }
-    public void showListCT(){
-        for(CTSP ct: listCTSP){
-            System.out.println(ct.getMaSP() +" " +ct.getTenSP());
-        }
     }
     public void addSPToDH(){
         int row = tblSP.getSelectedRow();
@@ -131,7 +139,7 @@ public class CreateOrder extends javax.swing.JPanel {
        order.setMaDon(chuanhoaMa(txtMaDon.getText()));
        order.setTenKhachHang(chuanhoaTen(txtTenKhachHang.getText()));
        order.setDate(getDate());
-//       order.addSP();
+       order.setListSP(listCTSP);
        return order;
     }
     
@@ -166,12 +174,12 @@ public class CreateOrder extends javax.swing.JPanel {
         }
     }
     
-    public void resetAllSelect(){
-        txtSearch.setText("");
-        txtSoLuong.setText("");
-        btnAdd.setEnabled(false);
-        tblSP.setRowSelectionInterval(0,0);
-    }
+//    public void resetAllSelect(){
+//        txtSearch.setText("");
+//        txtSoLuong.setText("");
+//        btnAdd.setEnabled(false);
+//        tblSP.setRowSelectionInterval(0,0);
+//    }
     
     public void removeSPFromDH(){
         int row = tblSP_DH.getSelectedRow();
@@ -193,8 +201,7 @@ public class CreateOrder extends javax.swing.JPanel {
         }
         return total;
     }
-    
-    public void resetDH(){
+    public void resetCTSP(){
         for(CTSP ct :listCTSP){
             for(Product prd : listSP){
                 if(prd.getMaSp().equals(ct.getMaSP())){
@@ -203,7 +210,8 @@ public class CreateOrder extends javax.swing.JPanel {
                 }
             }
         }
-        
+    }
+    public void resetDH(){
         txtMaDon.setText("");
         txtTenKhachHang.setText("");
         dateNgayLap.setCalendar(null);
@@ -212,6 +220,7 @@ public class CreateOrder extends javax.swing.JPanel {
         lblErrorName.setText("");
         listCTSP.clear();
         fillToTableDH();
+        fillToTable();
         lblTotal.setText("");
     }
     @SuppressWarnings("unchecked")
@@ -293,6 +302,11 @@ public class CreateOrder extends javax.swing.JPanel {
         });
 
         btnCreate.setText("Tạo");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         btnRenew.setText("Làm mới");
         btnRenew.addActionListener(new java.awt.event.ActionListener() {
@@ -404,9 +418,8 @@ public class CreateOrder extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblIConMaDH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtMaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblIconCheck)))
+                    .addComponent(lblIconCheck)
+                    .addComponent(txtMaDon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -465,7 +478,7 @@ public class CreateOrder extends javax.swing.JPanel {
                                 .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(238, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblError, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
@@ -478,16 +491,16 @@ public class CreateOrder extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(112, 112, 112)
-                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(39, 39, 39)
-                        .addComponent(btnRenew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnRenew, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
@@ -534,7 +547,7 @@ public class CreateOrder extends javax.swing.JPanel {
                 addSPToDH();
                 fillToTable();
                 fillToTableDH();
-                resetAllSelect();
+                txtSoLuong.setText("");
                 lblTotal.setText(convertMoney(updateTotalCost()));
             }
         }else {
@@ -609,6 +622,8 @@ public class CreateOrder extends javax.swing.JPanel {
             lblIConMaDH.setIcon(new ImageIcon(getClass().getResource("/checked.png")));
             addStatus = true;
         }
+        System.out.print(checkEqualMaDon(chuanhoaMa(txtMaDon.getText())));
+        showList();
     }//GEN-LAST:event_txtMaDonFocusLost
 
     private void txtTenKhachHangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenKhachHangFocusLost
@@ -625,6 +640,33 @@ public class CreateOrder extends javax.swing.JPanel {
     private void btnRenewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenewActionPerformed
         resetDH();
     }//GEN-LAST:event_btnRenewActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        try{
+            if(listCTSP.isEmpty()){
+               addStatus=false;
+            }
+            if(addStatus){
+                Order order = getInfoOrder();
+                Qs.setContent(order.getMaDon(),order.getTenKhachHang(),order.getDate(),order.getListSP());
+                Qs.setVisible(true);
+                if(Qs.isY_n()){
+                    OrderDAO dao = new OrderDAO();
+                    dao.addOrder(order);
+                    resetDH();
+                    getListOrder();
+                    success.setContent("Bạn đã thêm đơn hàng thành công.");
+                    success.setVisible(true);
+                    addStatus=false;
+                }
+            }else{
+                WarningError.setContent("Vui lòng điền đủ thông tin yêu cầu!");
+                WarningError.setVisible(true);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnCreateActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
