@@ -9,6 +9,7 @@ import com.dat.DialogAdd.Success;
 import com.dat.DialogAdd.Warning;
 import com.dat.MainForm.Add;
 import com.dat.MainForm.CreateOrder;
+import com.dat.MainForm.ListOrder;
 import com.dat.MainForm.MainForm;
 import com.dat.MainForm.Remove;
 import java.awt.Color;
@@ -154,7 +155,7 @@ public class Menu extends javax.swing.JPanel {
         lblInput.setBackground(new java.awt.Color(11, 13, 171));
         lblInput.setForeground(new java.awt.Color(255, 255, 255));
         lblInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/download.png"))); // NOI18N
-        lblInput.setText("Nhập sản phẩm");
+        lblInput.setText("Đặt hàng");
         lblInput.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblInput.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -259,7 +260,7 @@ public class Menu extends javax.swing.JPanel {
         lblWare.setOpaque(false);
         lblInput.setOpaque(false);
         lblList.setOpaque(true);
-        main.showForm(new Remove(Qs,sc,QsU));
+        main.showForm(new ListOrder());
     }//GEN-LAST:event_lblListMouseClicked
 
     private void lblWareMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblWareMousePressed

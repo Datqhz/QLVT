@@ -46,7 +46,7 @@ public class OrderDAO {
             ResultSet rs = pstm.executeQuery();
             while (rs.next()) {
                 CTSP ct  = new CTSP();
-                ct.setMaSP(rs.getString(1));
+                ct.setMaSP(rs.getString(2));
                 ct.setTenSP(getNameVT(ct.getMaSP()));
                 ct.setSoLuong(rs.getInt(3));
                 ct.setGia(rs.getInt(4));
