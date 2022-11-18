@@ -37,7 +37,16 @@ public class ProductDAO {
         }
 
     }
-    
+    public boolean updateSLT()throws Exception{
+        String sql ="{call updateSLT()}";
+        try (
+            Connection con = DatabaseHelper.openConnection(); 
+            Statement stmt = con.createStatement();){
+            return stmt.executeUpdate(sql)<0;
+        }
+            
+        
+    }
      //thêm sản phẩm
     public boolean addProduct(Product prd) throws Exception{
         String sql = "insert into VATTU(MAVT,TENVT,DVT,SOLUONGTON,GIABAN) values (?,?,?,?,?)";

@@ -12,6 +12,8 @@ import com.dat.Product.Product;
 import java.awt.Color;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -31,11 +33,7 @@ public class CreateOrder extends javax.swing.JPanel {
     Success success;
     boolean addStatus=false;
     QuestionOrder Qs;
-public void showList(){
-    for(Order or:listOrder){
-        System.out.print(or.getMaDon());
-    }
-}
+    
     public CreateOrder( Warning WarningError,QuestionOrder Qs, Success success) {
         initComponents();
         initTable();
@@ -110,8 +108,16 @@ public void showList(){
     
     public String getDate(){
         SimpleDateFormat g = new SimpleDateFormat("yyyy-MM-dd");
+        if(dateNgayLap.getDate()!=null){
         String date = g.format(dateNgayLap.getDate());
-        return date;
+        return date;}
+        else {
+            LocalDate localDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String date = localDate.format(formatter);
+            return date;
+        }
+            
     }
     public void addSPToDH(){
         int row = tblSP.getSelectedRow();
@@ -438,9 +444,9 @@ public void showList(){
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(dateNgayLap, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addGap(12, 12, 12)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -608,12 +614,12 @@ public void showList(){
 
     private void txtMaDonFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaDonFocusLost
         if(chuanhoaMa(txtMaDon.getText()).equals("")){
-            lblMaDon.setText("*Mã sản phẩm không được để trống");
+            lblMaDon.setText("*Mã đơn hàng không được để trống");
             lblMaDon.setForeground(new Color (255,0,0));
             lblIConMaDH.setIcon(new ImageIcon(getClass().getResource("/cross.png")));
             addStatus = false;
         }else if(checkEqualMaDon(chuanhoaMa(txtMaDon.getText()))){
-            lblMaDon.setText("*Mã sản phẩm đã tồn tại");
+            lblMaDon.setText("*Mã đơn hàng đã tồn tại");
             lblMaDon.setForeground(new Color (255,0,0));
             lblIConMaDH.setIcon(new ImageIcon(getClass().getResource("/cross.png")));
             addStatus = false;
@@ -622,8 +628,6 @@ public void showList(){
             lblIConMaDH.setIcon(new ImageIcon(getClass().getResource("/checked.png")));
             addStatus = true;
         }
-        System.out.print(checkEqualMaDon(chuanhoaMa(txtMaDon.getText())));
-        showList();
     }//GEN-LAST:event_txtMaDonFocusLost
 
     private void txtTenKhachHangFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTenKhachHangFocusLost
@@ -652,12 +656,15 @@ public void showList(){
                 Qs.setVisible(true);
                 if(Qs.isY_n()){
                     OrderDAO dao = new OrderDAO();
+                    ProductDAO dao1 = new ProductDAO();
                     dao.addOrder(order);
+                    dao1.updateSLT();
                     resetDH();
                     getListOrder();
                     success.setContent("Bạn đã thêm đơn hàng thành công.");
                     success.setVisible(true);
                     addStatus=false;
+                    
                 }
             }else{
                 WarningError.setContent("Vui lòng điền đủ thông tin yêu cầu!");
