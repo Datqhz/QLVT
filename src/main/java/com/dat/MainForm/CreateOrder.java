@@ -7,6 +7,7 @@ import com.dat.DialogAdd.QuestionOrder;
 import com.dat.DialogAdd.Success;
 import com.dat.DialogAdd.Warning;
 import com.dat.Order.CTSP;
+import com.dat.Order.DonHang;
 import com.dat.Order.Order;
 import com.dat.Product.Product;
 import java.awt.Color;
@@ -26,7 +27,7 @@ public class CreateOrder extends javax.swing.JPanel {
     DefaultTableModel tblModelSP = new DefaultTableModel();
     DefaultTableModel tblModelSP_DH = new DefaultTableModel();
     private Product temp;
-    private List<Order> listOrder;
+    private List<DonHang> listOrder;
     private List<CTSP> listCTSP;
     private boolean ttAdd= false;
     Warning WarningError;
@@ -74,7 +75,7 @@ public class CreateOrder extends javax.swing.JPanel {
     private void getListOrder(){
         try{
             OrderDAO dao = new OrderDAO();
-            listOrder=dao.loadListOrder();   
+            listOrder=dao.loadListDonHang();   
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -92,7 +93,7 @@ public class CreateOrder extends javax.swing.JPanel {
     public boolean checkEqualMaDon(String madon){
         try{
            OrderDAO Odao = new OrderDAO();
-            listOrder = Odao.loadListOrder(); 
+            listOrder = Odao.loadListDonHang(); 
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -140,8 +141,8 @@ public class CreateOrder extends javax.swing.JPanel {
         }
         tblModelSP_DH.fireTableDataChanged();
     }
-    public Order getInfoOrder(){
-       Order order = new Order();
+    public DonHang getInfoOrder(){
+       DonHang order = new DonHang();
        order.setMaDon(chuanhoaMa(txtMaDon.getText()));
        order.setTenKhachHang(chuanhoaTen(txtTenKhachHang.getText()));
        order.setDate(getDate());
@@ -651,7 +652,7 @@ public class CreateOrder extends javax.swing.JPanel {
                addStatus=false;
             }
             if(addStatus){
-                Order order = getInfoOrder();
+                DonHang order = getInfoOrder();
                 Qs.setContent(order.getMaDon(),order.getTenKhachHang(),order.getDate(),order.getListSP());
                 Qs.setVisible(true);
                 if(Qs.isY_n()){
