@@ -4,15 +4,18 @@ package com.dat.component;
 
 import com.dat.DialogAdd.Question;
 import com.dat.DialogAdd.QuestionOrder;
+import com.dat.DialogAdd.QuestionOrdertoWareHouse;
 import com.dat.DialogAdd.QuestionUpdate;
 import com.dat.DialogAdd.Success;
 import com.dat.DialogAdd.Warning;
 import com.dat.MainForm.Add;
+import com.dat.MainForm.AddtoWareHouse;
 import com.dat.MainForm.CreateOrder;
 import com.dat.MainForm.ListOrder;
 import com.dat.MainForm.MainForm;
+import com.dat.MainForm.OrdertoWareHouse;
 import com.dat.MainForm.Remove;
-import com.dat.MainForm.ShowWare;
+import com.dat.MainForm.ShowWareHouse;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -27,6 +30,7 @@ public class Menu extends javax.swing.JPanel {
     QuestionUpdate QsU;
     MainForm main;
     QuestionOrder QsO;
+    QuestionOrdertoWareHouse QsOw;
     public Menu(MainForm main, Warning WarningError, Question Qs,  Success sc, QuestionUpdate QsU,QuestionOrder QsO) {
         initComponents();
         this.main = main;
@@ -63,8 +67,9 @@ public class Menu extends javax.swing.JPanel {
         lblRemove = new javax.swing.JLabel();
         lblCreate = new javax.swing.JLabel();
         lblList = new javax.swing.JLabel();
-        lblWare = new javax.swing.JLabel();
-        lblInput = new javax.swing.JLabel();
+        lblWarehouse = new javax.swing.JLabel();
+        lblOrdertowarehouse = new javax.swing.JLabel();
+        lblAddtowarehouse = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
@@ -142,25 +147,32 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
-        lblWare.setBackground(new java.awt.Color(11, 13, 171));
-        lblWare.setForeground(new java.awt.Color(255, 255, 255));
-        lblWare.setIcon(new javax.swing.ImageIcon(getClass().getResource("/warehouse.png"))); // NOI18N
-        lblWare.setText("Kho");
-        lblWare.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblWare.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblWarehouse.setBackground(new java.awt.Color(11, 13, 171));
+        lblWarehouse.setForeground(new java.awt.Color(255, 255, 255));
+        lblWarehouse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/warehouse.png"))); // NOI18N
+        lblWarehouse.setText("Kho");
+        lblWarehouse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblWarehouse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblWareMousePressed(evt);
+                lblWarehouseMousePressed(evt);
             }
         });
 
-        lblInput.setBackground(new java.awt.Color(11, 13, 171));
-        lblInput.setForeground(new java.awt.Color(255, 255, 255));
-        lblInput.setIcon(new javax.swing.ImageIcon(getClass().getResource("/download.png"))); // NOI18N
-        lblInput.setText("Đặt hàng");
-        lblInput.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblInput.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblOrdertowarehouse.setBackground(new java.awt.Color(11, 13, 171));
+        lblOrdertowarehouse.setForeground(new java.awt.Color(255, 255, 255));
+        lblOrdertowarehouse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/download.png"))); // NOI18N
+        lblOrdertowarehouse.setText("Đặt hàng");
+        lblOrdertowarehouse.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblOrdertowarehouse.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblInputMousePressed(evt);
+                lblOrdertowarehouseMousePressed(evt);
+            }
+        });
+
+        lblAddtowarehouse.setText("Thêm hàng vào kho");
+        lblAddtowarehouse.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAddtowarehouseMouseClicked(evt);
             }
         });
 
@@ -172,8 +184,12 @@ public class Menu extends javax.swing.JPanel {
             .addComponent(lblRemove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
             .addComponent(lblCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblInput, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblWare, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblOrdertowarehouse, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblWarehouse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(pnMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblAddtowarehouse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         pnMenuLayout.setVerticalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,10 +203,12 @@ public class Menu extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblList, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
-                .addComponent(lblWare, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblWarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblInput, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addComponent(lblOrdertowarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblAddtowarehouse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(218, Short.MAX_VALUE))
         );
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -225,8 +243,9 @@ public class Menu extends javax.swing.JPanel {
         lblRemove.setOpaque(false);
         lblCreate.setOpaque(false);
         lblList.setOpaque(false);
-        lblWare.setOpaque(false);
-        lblInput.setOpaque(false);
+        lblWarehouse.setOpaque(false);
+        lblOrdertowarehouse.setOpaque(false);
+        lblAddtowarehouse.setOpaque(false);
         lblAdd.setOpaque(true);
         
         main.showForm(new Add( WarningError,Qs , sc));
@@ -238,8 +257,9 @@ public class Menu extends javax.swing.JPanel {
         lblAdd.setOpaque(false);
         lblCreate.setOpaque(false);
         lblList.setOpaque(false);
-        lblWare.setOpaque(false);
-        lblInput.setOpaque(false);
+        lblWarehouse.setOpaque(false);
+        lblOrdertowarehouse.setOpaque(false);
+        lblAddtowarehouse.setOpaque(false);
         lblRemove.setOpaque(true);
         main.showForm(new Remove(Qs,sc,QsU));
     }//GEN-LAST:event_lblRemoveMouseClicked
@@ -248,8 +268,9 @@ public class Menu extends javax.swing.JPanel {
         lblRemove.setOpaque(false);
         lblAdd.setOpaque(false);
         lblList.setOpaque(false);
-        lblWare.setOpaque(false);
-        lblInput.setOpaque(false);
+        lblWarehouse.setOpaque(false);
+        lblOrdertowarehouse.setOpaque(false);
+        lblAddtowarehouse.setOpaque(false);
         lblCreate.setOpaque(true);
         main.showForm(new CreateOrder(WarningError,QsO , sc));
     }//GEN-LAST:event_lblCreateMouseClicked
@@ -258,31 +279,45 @@ public class Menu extends javax.swing.JPanel {
         lblRemove.setOpaque(false);
         lblCreate.setOpaque(false);
         lblAdd.setOpaque(false);
-        lblWare.setOpaque(false);
-        lblInput.setOpaque(false);
+        lblWarehouse.setOpaque(false);
+        lblOrdertowarehouse.setOpaque(false);
+        lblAddtowarehouse.setOpaque(false);
         lblList.setOpaque(true);
         main.showForm(new ListOrder());
     }//GEN-LAST:event_lblListMouseClicked
 
-    private void lblWareMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblWareMousePressed
-        lblInput.setOpaque(false);
+    private void lblWarehouseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblWarehouseMousePressed
+        lblOrdertowarehouse.setOpaque(false);
         lblRemove.setOpaque(false);
         lblCreate.setOpaque(false);
         lblList.setOpaque(false);
         lblAdd.setOpaque(false);
-        lblWare.setOpaque(true);
-        main.showForm(new ShowWare());
-    }//GEN-LAST:event_lblWareMousePressed
+        lblAddtowarehouse.setOpaque(false);
+        lblWarehouse.setOpaque(true);
+        main.showForm(new ShowWareHouse());
+    }//GEN-LAST:event_lblWarehouseMousePressed
 
-    private void lblInputMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInputMousePressed
+    private void lblOrdertowarehouseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOrdertowarehouseMousePressed
          lblRemove.setOpaque(false);
         lblCreate.setOpaque(false);
         lblList.setOpaque(false);
         lblAdd.setOpaque(false);
-        lblWare.setOpaque(false);
-        lblInput.setOpaque(true);
-        main.showForm(new Remove(Qs,sc,QsU));
-    }//GEN-LAST:event_lblInputMousePressed
+        lblWarehouse.setOpaque(false);
+        lblAddtowarehouse.setOpaque(false);
+        lblOrdertowarehouse.setOpaque(true);
+        main.showForm(new OrdertoWareHouse(WarningError,QsOw , sc));
+    }//GEN-LAST:event_lblOrdertowarehouseMousePressed
+
+    private void lblAddtowarehouseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddtowarehouseMouseClicked
+        lblRemove.setOpaque(false);
+        lblCreate.setOpaque(false);
+        lblList.setOpaque(false);
+        lblAdd.setOpaque(false);
+        lblWarehouse.setOpaque(false);
+        lblOrdertowarehouse.setOpaque(false);
+        lblAddtowarehouse.setOpaque(true);
+        main.showForm(new AddtoWareHouse());
+    }//GEN-LAST:event_lblAddtowarehouseMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -290,11 +325,12 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JLabel lblAdd;
+    private javax.swing.JLabel lblAddtowarehouse;
     private javax.swing.JLabel lblCreate;
-    private javax.swing.JLabel lblInput;
     private javax.swing.JLabel lblList;
+    private javax.swing.JLabel lblOrdertowarehouse;
     private javax.swing.JLabel lblRemove;
-    private javax.swing.JLabel lblWare;
+    private javax.swing.JLabel lblWarehouse;
     private javax.swing.JPanel pnHome;
     private javax.swing.JPanel pnMenu;
     // End of variables declaration//GEN-END:variables

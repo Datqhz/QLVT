@@ -103,8 +103,13 @@
               <Component id="lblRemove" alignment="1" max="32767" attributes="0"/>
               <Component id="lblList" alignment="1" pref="200" max="32767" attributes="0"/>
               <Component id="lblCreate" alignment="1" max="32767" attributes="0"/>
-              <Component id="lblInput" alignment="1" max="32767" attributes="0"/>
-              <Component id="lblWare" alignment="0" max="32767" attributes="0"/>
+              <Component id="lblOrdertowarehouse" alignment="1" max="32767" attributes="0"/>
+              <Component id="lblWarehouse" alignment="0" max="32767" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="lblAddtowarehouse" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -119,10 +124,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblList" min="-2" pref="30" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="lblWare" min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="lblWarehouse" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblInput" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace pref="260" max="32767" attributes="0"/>
+                  <Component id="lblOrdertowarehouse" min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblAddtowarehouse" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace pref="218" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -210,7 +217,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblListMouseClicked"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblWare">
+        <Component class="javax.swing.JLabel" name="lblWarehouse">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ab" green="d" red="b" type="rgb"/>
@@ -227,10 +234,10 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblWareMousePressed"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblWarehouseMousePressed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblInput">
+        <Component class="javax.swing.JLabel" name="lblOrdertowarehouse">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ab" green="d" red="b" type="rgb"/>
@@ -247,7 +254,15 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblInputMousePressed"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblOrdertowarehouseMousePressed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblAddtowarehouse">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Th&#xea;m h&#xe0;ng v&#xe0;o kho"/>
+          </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddtowarehouseMouseClicked"/>
           </Events>
         </Component>
       </SubComponents>

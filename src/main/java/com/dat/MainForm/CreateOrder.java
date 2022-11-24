@@ -344,7 +344,7 @@ public class CreateOrder extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblSP_DH);
 
-        jLabel3.setText("Mã đơn hàng");
+        jLabel3.setText("Mã đơn hàng:");
 
         txtTenKhachHang.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -458,7 +458,7 @@ public class CreateOrder extends javax.swing.JPanel {
                 .addGap(9, 9, 9))
         );
 
-        jLabel7.setText("Số lượng");
+        jLabel7.setText("Số lượng:");
 
         btnRemove.setText("Xóa ");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
