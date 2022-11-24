@@ -5,10 +5,9 @@ import java.util.List;
 
 
 public class Order {
-    private String maDon;
-    private String date;
-    private String tenKhachHang;
-    private List<CTSP> listSP;
+    protected String maDon;
+    protected String date;
+    protected List<CTSP> listSP;
 
     public String getMaDon() {
         return maDon;
@@ -26,13 +25,7 @@ public class Order {
         this.date = date;
     }
 
-    public String getTenKhachHang() {
-        return tenKhachHang;
-    }
-
-    public void setTenKhachHang(String tenKhachHang) {
-        this.tenKhachHang = tenKhachHang;
-    }
+    
 
     public List<CTSP> getListSP() {
         return listSP;

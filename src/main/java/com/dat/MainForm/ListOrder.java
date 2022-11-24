@@ -3,6 +3,7 @@ package com.dat.MainForm;
 
 import DAO.OrderDAO;
 import com.dat.Order.CTSP;
+import com.dat.Order.DonHang;
 import com.dat.Order.Order;
 import java.text.NumberFormat;
 import java.util.List;
@@ -13,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class ListOrder extends javax.swing.JPanel {
     DefaultTableModel tblModelDH = new DefaultTableModel();
     DefaultTableModel tblModelSP_DH = new DefaultTableModel();
-    private List<Order> listOrder;
+    private List<DonHang> listOrder;
     private List<CTSP> listCTSP;
     
     public ListOrder() {
@@ -36,11 +37,11 @@ public class ListOrder extends javax.swing.JPanel {
         tblModelDH.setRowCount(0);
         try{
             OrderDAO dao = new OrderDAO();
-            listOrder=dao.loadListOrder();   
+            listOrder=dao.loadListDonHang();   
         }catch(Exception e){
             e.printStackTrace();
         }
-        for(Order order : listOrder){
+        for(DonHang order : listOrder){
             Object[] row = new Object[]{order.getMaDon(),order.getTenKhachHang(),order.getDate(),convertMoney(totalCost(order.getListSP()))};
             tblModelDH.addRow(row);
         }

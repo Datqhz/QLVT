@@ -2,6 +2,7 @@
 package DAO;
 
 import com.dat.Order.CTSP;
+import com.dat.Order.DonHang;
 import com.dat.Order.Order;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -59,8 +60,8 @@ public class OrderDAO {
     
     
     // lấy danh sách đơn hàng
-     public List<Order> loadListOrder() throws Exception {
-        List<Order> listOrder = new ArrayList<>();
+     public List<DonHang> loadListDonHang() throws Exception {
+        List<DonHang> listOrder = new ArrayList<>();
         String sql = "select * from PHIEUXUAT";
         
         try (
@@ -69,7 +70,7 @@ public class OrderDAO {
             ResultSet rs = stmt.executeQuery(sql);) {
           
             while (rs.next()) {
-                Order temp = new Order();
+                DonHang temp = new DonHang();
                 temp.setMaDon(chuanhoaMa(rs.getString(1)));
                 temp.setDate(rs.getString(2));
                 temp.setTenKhachHang(rs.getString(3));
@@ -94,7 +95,7 @@ public class OrderDAO {
 //         }
 //         return 
 //     }
-     public void addOrder(Order order)throws Exception{
+     public void addOrder(DonHang order)throws Exception{
          String sql = "insert into PHIEUXUAT(MAPX,NGAY,HOTENKH) values (?,?,?)";
          String sql1 = "insert into CTPX(MAPX,MAVT,SOLUONG,DONGIA) values (?,?,?,?)";
         try (
