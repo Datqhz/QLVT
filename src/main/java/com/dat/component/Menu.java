@@ -1,4 +1,4 @@
-
+    
 package com.dat.component;
 
 
@@ -12,6 +12,7 @@ import com.dat.MainForm.CreateOrder;
 import com.dat.MainForm.ListOrder;
 import com.dat.MainForm.MainForm;
 import com.dat.MainForm.Remove;
+import com.dat.MainForm.ShowWare;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -270,7 +271,7 @@ public class Menu extends javax.swing.JPanel {
         lblList.setOpaque(false);
         lblAdd.setOpaque(false);
         lblWare.setOpaque(true);
-        main.showForm(new CreateOrder(WarningError,QsO , sc));
+        main.showForm(new ShowWare());
     }//GEN-LAST:event_lblWareMousePressed
 
     private void lblInputMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblInputMousePressed
