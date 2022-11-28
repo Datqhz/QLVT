@@ -653,6 +653,7 @@ public class CreateOrder extends javax.swing.JPanel {
             }
             if(addStatus){
                 DonHang order = getInfoOrder();
+                Qs.setCn(true);
                 Qs.setContent(order.getMaDon(),order.getTenKhachHang(),order.getDate(),order.getListSP());
                 Qs.setVisible(true);
                 if(Qs.isY_n()){

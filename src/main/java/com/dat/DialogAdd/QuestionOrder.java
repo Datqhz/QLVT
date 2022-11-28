@@ -10,13 +10,15 @@ import javax.swing.table.DefaultTableModel;
 
 public class QuestionOrder extends javax.swing.JDialog {
     DefaultTableModel tblModel = new DefaultTableModel();
-    boolean y_n;
+    boolean y_n,cn;
+    
     public QuestionOrder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         initTable();
         setLocationRelativeTo(null);
         y_n=false;
+        cn=false;
     }
     
     public void initTable(){
@@ -32,9 +34,17 @@ public class QuestionOrder extends javax.swing.JDialog {
         }
         tblModel.fireTableDataChanged();
     }
-
+    
     public boolean isY_n() {
         return y_n;
+    }
+
+    public boolean isCn() {
+        return cn;
+    }
+
+    public void setCn(boolean cn) {
+        this.cn = cn;
     }
     
     
@@ -45,10 +55,25 @@ public class QuestionOrder extends javax.swing.JDialog {
         }
         return total;
     }
-    
-    public void setContent(String maDon, String tenKH,String ngay ,List<CTSP> list){
+    public void setFunction(){
+        if(cn){
+            lblFunction.setText("Thông tin đơn hàng:");
+            lblCN.setText("Mã đơn hàng:");
+            lblCustom.setText("Tên khách hàng:");
+            lblDetail.setText("Chi tiết đơn hàng:");
+            lblQuestion.setText("Bạn có muốn tạo đơn hàng không?");
+        }else{
+            lblFunction.setText("Thông tin đơn đặt hàng:");
+            lblCN.setText("Mã đơn đặt hàng:");
+            lblCustom.setText("Tên nhà cung cấp");
+            lblDetail.setText("Chi tiết đơn đặt hàng:");
+            lblQuestion.setText("Bạn có muốn tạo đơn đặt hàng không?");
+        }
+    }
+    public void setContent(String maDon, String ten,String ngay ,List<CTSP> list){
+        setFunction();
         lblMaDH.setText(maDon);
-        lblTenKhachHang.setText(tenKH);
+        lblTen.setText(ten);
         lblNgaylap.setText(ngay);
         fillToTableDH(list);
         lblTotal.setText(convertMoney(totalCost(list)));
@@ -62,38 +87,38 @@ public class QuestionOrder extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblFunction = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblCN = new javax.swing.JLabel();
         lblMaDH = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        lblTenKhachHang = new javax.swing.JLabel();
+        lblCustom = new javax.swing.JLabel();
+        lblTen = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         lblNgaylap = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCTSP = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblDetail = new javax.swing.JLabel();
         lblTotal = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblQuestion = new javax.swing.JLabel();
         btnYes = new com.dat.Swing.ButtonCustom();
         btnNo = new com.dat.Swing.ButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("Thông tin đơn hàng:");
+        lblFunction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblFunction.setText(" ");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("Mã đơn hàng:");
+        lblCN.setText(" ");
 
         lblMaDH.setText("jLabel4");
 
-        jLabel4.setText("Tên khách hàng:");
+        lblCustom.setText(" ");
 
-        lblTenKhachHang.setText("jLabel5");
+        lblTen.setText("jLabel5");
 
         jLabel5.setText("Ngày lập:");
 
@@ -115,7 +140,7 @@ public class QuestionOrder extends javax.swing.JDialog {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Tổng:");
 
-        jLabel7.setText("Chi tiết đơn hàng:");
+        lblDetail.setText(" ");
 
         lblTotal.setText("jLabel8");
 
@@ -131,24 +156,23 @@ public class QuestionOrder extends javax.swing.JDialog {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(lblCN, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblMaDH, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblMaDH, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCustom, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblTenKhachHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblNgaylap, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 20, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lblTen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(lblDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -157,16 +181,16 @@ public class QuestionOrder extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(lblCN)
                     .addComponent(lblMaDH)
-                    .addComponent(jLabel4)
-                    .addComponent(lblTenKhachHang))
+                    .addComponent(lblCustom)
+                    .addComponent(lblTen))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lblNgaylap))
                 .addGap(25, 25, 25)
-                .addComponent(jLabel7)
+                .addComponent(lblDetail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -176,7 +200,7 @@ public class QuestionOrder extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel2.setText("Bạn có muốn tạo đơn hàng không?");
+        lblQuestion.setText(" ");
 
         btnYes.setText("Có");
         btnYes.addActionListener(new java.awt.event.ActionListener() {
@@ -200,32 +224,31 @@ public class QuestionOrder extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(btnYes, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnNo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64))))
+                        .addGap(64, 64, 64))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblFunction, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(jLabel2)
+                .addComponent(lblQuestion, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(lblFunction, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblQuestion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnYes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,18 +273,18 @@ public class QuestionOrder extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.dat.Swing.ButtonCustom btnNo;
     private com.dat.Swing.ButtonCustom btnYes;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCN;
+    private javax.swing.JLabel lblCustom;
+    private javax.swing.JLabel lblDetail;
+    private javax.swing.JLabel lblFunction;
     private javax.swing.JLabel lblMaDH;
     private javax.swing.JLabel lblNgaylap;
-    private javax.swing.JLabel lblTenKhachHang;
+    private javax.swing.JLabel lblQuestion;
+    private javax.swing.JLabel lblTen;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblCTSP;
     // End of variables declaration//GEN-END:variables
