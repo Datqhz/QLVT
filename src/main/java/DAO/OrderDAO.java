@@ -2,6 +2,7 @@
 package DAO;
 
 import com.dat.Order.CTSP;
+import com.dat.Order.DatHang;
 import com.dat.Order.DonHang;
 import com.dat.Order.Order;
 import java.sql.Connection;
@@ -57,7 +58,27 @@ public class OrderDAO {
         }
         return listCTPX;
     }
-    
+    //Lấy Danh sách sản phẩm có trong đơn đặt hàng
+    public List<CTSP> loadCTDDH(String madon) throws Exception{
+        List<CTSP> listCTPX = new ArrayList<>();
+        String sql = "select * from CTDDH where MASODDH =?";
+        try (
+            Connection con = DatabaseHelper.openConnection(); 
+            PreparedStatement pstm = con.prepareStatement(sql);) {
+            pstm.setString(1, madon);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                CTSP ct  = new CTSP();
+                ct.setMaSP(rs.getString(2));
+                ct.setTenSP(getNameVT(ct.getMaSP()));
+                ct.setSoLuong(rs.getInt(3));
+                ct.setGia(rs.getInt(4));
+                listCTPX.add(ct);
+            }
+            
+        }
+        return listCTPX;
+    }
     
     // lấy danh sách đơn hàng
      public List<DonHang> loadListDonHang() throws Exception {
@@ -81,8 +102,29 @@ public class OrderDAO {
         }
 
     }
+    // lấy danh sách đặt hàng
+     public List<DatHang> loadListDatHang() throws Exception {
+        List<DatHang> listTheOrders = new ArrayList<>();
+        String sql = "select * from DATHANG";
+        
+        try (
+            Connection con = DatabaseHelper.openConnection(); 
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);) {
+          
+            while (rs.next()) {
+                DatHang temps = new DatHang();
+                temps.setMaDon(chuanhoaMa(rs.getString(1)));
+                temps.setDate(rs.getString(2));
+                temps.setNhaCungCap(rs.getString(3));
+                temps.setListSP(loadCTDDH(temps.getMaDon()));
+                listTheOrders.add(temps);
+            }
+            return listTheOrders;
+        }
+
+    }
      
-//     
 //     public boolean addCTPX(CTSP ct,String MaDon)throws Exception{
 //         String sql = "insert into CTPX(MAPX,MAV,SOLUONG,DONGIA) values (?,?,?,?)";
 //         try (
@@ -109,6 +151,28 @@ public class OrderDAO {
             pstm.executeUpdate();
             for(CTSP ct : order.getListSP()){
                 addCT.setString(1, order.getMaDon());
+                addCT.setString(2, ct.getMaSP());
+                addCT.setString(3,Integer.toString(ct.getSoLuong()));
+                addCT.setString(4,Integer.toString(ct.getGia()));
+                addCT.executeUpdate();
+            }
+            
+        }
+     }
+     public void addTheOrders(DatHang theOrders)throws Exception{
+         String sql = "insert into DATHANG(MASODDH,NGAY,NHACC) values (?,?,?)";
+         String sql1 = "insert into CTDDH(MASODDH,MAVT,SOLUONG,DONGIA) values (?,?,?,?)";
+        try (
+                Connection con = DatabaseHelper.openConnection();  
+                PreparedStatement pstm = con.prepareStatement(sql);
+                PreparedStatement addCT = con.prepareStatement(sql1);) 
+        {
+            pstm.setString(1, theOrders.getMaDon());
+            pstm.setString(2, theOrders.getDate());
+            pstm.setString(3, theOrders.getNhaCungCap());
+            pstm.executeUpdate();
+            for(CTSP ct : theOrders.getListSP()){
+                addCT.setString(1, theOrders.getMaDon());
                 addCT.setString(2, ct.getMaSP());
                 addCT.setString(3,Integer.toString(ct.getSoLuong()));
                 addCT.setString(4,Integer.toString(ct.getGia()));
