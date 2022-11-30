@@ -94,6 +94,7 @@ public class ListOrder extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDH.setSelectionBackground(new java.awt.Color(102, 255, 255));
         tblDH.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblDHMouseClicked(evt);
@@ -120,6 +121,7 @@ public class ListOrder extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblSP_DH.setSelectionBackground(new java.awt.Color(102, 255, 255));
         jScrollPane2.setViewportView(tblSP_DH);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

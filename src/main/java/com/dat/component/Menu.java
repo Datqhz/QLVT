@@ -169,6 +169,9 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
+        lblListTheOrders.setBackground(new java.awt.Color(11, 13, 171));
+        lblListTheOrders.setForeground(new java.awt.Color(255, 255, 255));
+        lblListTheOrders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-import-goods-24.png"))); // NOI18N
         lblListTheOrders.setText("Danh sách đơn đặt hàng");
         lblListTheOrders.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -186,10 +189,7 @@ public class Menu extends javax.swing.JPanel {
             .addComponent(lblCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblTheOrders, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblWarehouse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblListTheOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(lblListTheOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnMenuLayout.setVerticalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

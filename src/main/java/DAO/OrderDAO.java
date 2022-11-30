@@ -98,10 +98,12 @@ public class OrderDAO {
      public void addOrder(DonHang order)throws Exception{
          String sql = "insert into PHIEUXUAT(MAPX,NGAY,HOTENKH) values (?,?,?)";
          String sql1 = "insert into CTPX(MAPX,MAVT,SOLUONG,DONGIA) values (?,?,?,?)";
+         String updateSLT = "{call updateSLT}";
         try (
                 Connection con = DatabaseHelper.openConnection();  
                 PreparedStatement pstm = con.prepareStatement(sql);
-                PreparedStatement addCT = con.prepareStatement(sql1);) 
+                PreparedStatement addCT = con.prepareStatement(sql1);
+                PreparedStatement update = con.prepareStatement(updateSLT)) 
         {
             pstm.setString(1, order.getMaDon());
             pstm.setString(2, order.getDate());
@@ -114,7 +116,7 @@ public class OrderDAO {
                 addCT.setString(4,Integer.toString(ct.getGia()));
                 addCT.executeUpdate();
             }
-            
+            update.executeUpdate();
         }
      }
      public String chuanhoaMa(String ma){
