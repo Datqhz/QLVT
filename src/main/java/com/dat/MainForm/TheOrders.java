@@ -27,7 +27,7 @@ public class TheOrders extends javax.swing.JPanel {
     DefaultTableModel tblModelSP = new DefaultTableModel();
     DefaultTableModel tblModelSP_DH = new DefaultTableModel();
     private Product temp;
-    private List<DatHang> listOrder;
+    private List<DatHang> listTheOrders;
     private List<CTSP> listCTSP;
     private boolean ttAdd= false;
     Warning WarningError;
@@ -69,10 +69,10 @@ public class TheOrders extends javax.swing.JPanel {
         }
     }
     
-    private void getListOrder(){
+    private void getListTheOrders(){
         try{
             OrderDAO dao = new OrderDAO();
-            listOrder=dao.loadListDatHang();   
+            listTheOrders= dao.loadListDatHang();   
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -89,13 +89,13 @@ public class TheOrders extends javax.swing.JPanel {
     
     public boolean checkEqualMasoDDH(String masoDDH){
         try{
-           OrderDAO Odao = new OrderDAO();
-            listOrder = Odao.loadListDatHang(); 
+           OrderDAO dao = new OrderDAO();
+            listTheOrders = dao.loadListDatHang(); 
         }catch(Exception e){
             e.printStackTrace();
         }
         
-        Order t = this.listOrder.stream().filter(pr -> pr.getMaDon().equals(masoDDH)).findFirst().orElse(null);
+        Order t = this.listTheOrders.stream().filter(pr -> pr.getMaDon().equals(masoDDH)).findFirst().orElse(null);
         return t != null;
     }
     
@@ -157,7 +157,7 @@ public class TheOrders extends javax.swing.JPanel {
         for(CTSP ct: listCTSP){
             if(ct.getMaSP().equals(prd.getMaSp())){
                     ct.setSoLuong(ct.getSoLuong() + Integer.parseInt(txtSoLuong.getText()));
-                    //prd.setSlTon(prd.getSlTon()-Integer.parseInt(txtSoLuong.getText()));
+                   
                     return true;
             }
         }
@@ -199,11 +199,12 @@ public class TheOrders extends javax.swing.JPanel {
             }
         }
     }
-    public void resetDH(){
+    public void resetDDH(){
         txtMasoDDH.setText("");
         txtNhaCC.setText("");
         dateNgayLap.setCalendar(null);
         lblMaso.setText("");
+        txtGiaBan.setText("");
         lblIConMaso.setIcon(null);
         lbl1.setText("");
         listCTSP.clear();
@@ -495,7 +496,7 @@ public class TheOrders extends javax.swing.JPanel {
                         .addGap(71, 71, 71)
                         .addComponent(btnRenew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -652,8 +653,8 @@ public class TheOrders extends javax.swing.JPanel {
                     ProductDAO dao1 = new ProductDAO();
                     dao.addTheOrders(theOrders);
                     dao1.updateSLT();
-                    resetDH();
-                    getListOrder();
+                    resetDDH();
+                    getListTheOrders();
                     success.setContent("Bạn đã thêm đơn đặt hàng thành công.");
                     success.setVisible(true);
                     addStatus=false;
@@ -677,7 +678,7 @@ public class TheOrders extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnRenewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenewActionPerformed
-       resetDH();
+       resetDDH();
     }//GEN-LAST:event_btnRenewActionPerformed
 
 
