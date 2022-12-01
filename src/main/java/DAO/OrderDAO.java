@@ -60,7 +60,7 @@ public class OrderDAO {
     }
     //Lấy Danh sách sản phẩm có trong đơn đặt hàng
     public List<CTSP> loadCTDDH(String madon) throws Exception{
-        List<CTSP> listCTPX = new ArrayList<>();
+        List<CTSP> listCTDDH = new ArrayList<>();
         String sql = "select * from CTDDH where MASODDH =?";
         try (
             Connection con = DatabaseHelper.openConnection(); 
@@ -73,11 +73,11 @@ public class OrderDAO {
                 ct.setTenSP(getNameVT(ct.getMaSP()));
                 ct.setSoLuong(rs.getInt(3));
                 ct.setGia(rs.getInt(4));
-                listCTPX.add(ct);
+                listCTDDH.add(ct);
             }
             
         }
-        return listCTPX;
+        return listCTDDH;
     }
     
     // lấy danh sách đơn hàng
