@@ -12,7 +12,7 @@ import com.dat.MainForm.ListTheOrders;
 import com.dat.MainForm.CreateOrder;
 import com.dat.MainForm.ListOrder;
 import com.dat.MainForm.MainForm;
-import com.dat.MainForm.TheOrders;
+//import com.dat.MainForm.TheOrders;
 import com.dat.MainForm.Remove;
 import com.dat.MainForm.ShowWareHouse;
 import java.awt.Color;
@@ -167,6 +167,9 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
+        lblListTheOrders.setBackground(new java.awt.Color(11, 13, 171));
+        lblListTheOrders.setForeground(new java.awt.Color(255, 255, 255));
+        lblListTheOrders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-import-goods-24.png"))); // NOI18N
         lblListTheOrders.setText("Danh sách đơn đặt hàng");
         lblListTheOrders.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -184,10 +187,7 @@ public class Menu extends javax.swing.JPanel {
             .addComponent(lblCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblTheOrders, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblWarehouse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pnMenuLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblListTheOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(lblListTheOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnMenuLayout.setVerticalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,7 +303,7 @@ public class Menu extends javax.swing.JPanel {
         lblWarehouse.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblTheOrders.setOpaque(true);
-        main.showForm(new TheOrders(WarningError,QsO , sc));
+//        main.showForm(new TheOrders(WarningError,QsO , sc));
     }//GEN-LAST:event_lblTheOrdersMousePressed
 
     private void lblListTheOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListTheOrdersMouseClicked

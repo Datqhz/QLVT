@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <Properties>
+    <Property name="opaque" type="boolean" value="false"/>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -22,9 +25,9 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-              <Component id="lblMaVT" min="-2" pref="64" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+              <Component id="lblMaVT" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="txtsearch" min="-2" pref="358" max="-2" attributes="0"/>
@@ -44,7 +47,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnsearch" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblMaVT" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="lblMaVT" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtsearch" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -81,10 +84,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lblMaVT">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="M&#xe3; v&#x1ead;t t&#x1b0;:"/>
+        <Property name="text" type="java.lang.String" value="M&#xe3; s&#x1ea3;n ph&#x1ea9;m:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnsearch">

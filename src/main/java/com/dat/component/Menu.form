@@ -105,11 +105,7 @@
               <Component id="lblCreate" alignment="1" max="32767" attributes="0"/>
               <Component id="lblTheOrders" alignment="1" max="32767" attributes="0"/>
               <Component id="lblWarehouse" alignment="0" max="32767" attributes="0"/>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblListTheOrders" max="32767" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
+              <Component id="lblListTheOrders" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -259,6 +255,15 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblListTheOrders">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ab" green="d" red="b" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/icons8-import-goods-24.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Danh s&#xe1;ch &#x111;&#x1a1;n &#x111;&#x1eb7;t h&#xe0;ng"/>
           </Properties>
           <Events>
