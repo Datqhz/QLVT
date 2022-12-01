@@ -12,7 +12,7 @@ import com.dat.MainForm.ListTheOrders;
 import com.dat.MainForm.CreateOrder;
 import com.dat.MainForm.ListOrder;
 import com.dat.MainForm.MainForm;
-//import com.dat.MainForm.TheOrders;
+import com.dat.MainForm.TheOrders;
 import com.dat.MainForm.Remove;
 import com.dat.MainForm.ShowWareHouse;
 import java.awt.Color;
@@ -303,7 +303,7 @@ public class Menu extends javax.swing.JPanel {
         lblWarehouse.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblTheOrders.setOpaque(true);
-//        main.showForm(new TheOrders(WarningError,QsO , sc));
+        main.showForm(new TheOrders(WarningError,QsO , sc));
     }//GEN-LAST:event_lblTheOrdersMousePressed
 
     private void lblListTheOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListTheOrdersMouseClicked

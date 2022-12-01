@@ -8,6 +8,7 @@ public class Order {
     protected String maDon;
     protected String date;
     protected List<CTSP> listSP;
+    protected boolean tt;
 
     public String getMaDon() {
         return maDon;
@@ -39,4 +40,11 @@ public class Order {
     public void addSP(CTSP ct){
         listSP.add(ct);
     }
+    public void setTT(boolean tt){
+        this.tt = tt;
+    }
+    public boolean getTT(){
+        return tt;
+    }
+    
 }
