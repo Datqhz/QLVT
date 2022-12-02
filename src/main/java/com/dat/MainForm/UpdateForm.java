@@ -2,9 +2,9 @@
 package com.dat.MainForm;
 
 import DAO.ProductDAO;
-import com.dat.DialogAdd.Question;
-import com.dat.DialogAdd.QuestionUpdate;
-import com.dat.DialogAdd.Success;
+import com.dat.Dialog.Question;
+import com.dat.Dialog.QuestionUpdate;
+import com.dat.Dialog.Success;
 import com.dat.Product.Product;
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -14,14 +14,14 @@ import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 
 
-public class Remove extends javax.swing.JPanel {
+public class UpdateForm extends javax.swing.JPanel {
     List<Product> list;
     Question Qs ;
     Success success;
     QuestionUpdate QsU;
     private Product temp;
     private DefaultTableModel tblModel = new DefaultTableModel();
-    public Remove(Question Qs, Success sc, QuestionUpdate QsU) {
+    public UpdateForm(Question Qs, Success sc, QuestionUpdate QsU) {
         initComponents();
         initTable();
         btnRemove.setEnabled(false);

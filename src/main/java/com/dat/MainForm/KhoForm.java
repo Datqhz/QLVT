@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 
-public class ShowWareHouse extends javax.swing.JPanel {
+public class KhoForm extends javax.swing.JPanel {
     List<Product> list = new ArrayList() ;
     DefaultTableModel tblModelSP = new DefaultTableModel();
     private Product temp;
-    public ShowWareHouse() {
+    public KhoForm() {
         initComponents();
         setOpaque(false);
         initTable();

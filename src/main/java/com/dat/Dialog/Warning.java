@@ -1,5 +1,5 @@
 
-package com.dat.DialogAdd;
+package com.dat.Dialog;
 
 import java.awt.Color;
 

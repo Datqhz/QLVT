@@ -1,5 +1,5 @@
 
-package com.dat.DialogAdd;
+package com.dat.Dialog;
 
 import com.dat.Order.CTSP;
 import java.text.NumberFormat;

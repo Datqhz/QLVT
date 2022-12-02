@@ -2,10 +2,11 @@
 package com.dat.MainForm;
 
 import DAO.OrderDAO;
+import com.dat.Dialog.QsDelete;
+import com.dat.Dialog.Success;
 import com.dat.Order.CTSP;
 import com.dat.Order.DonHang;
 import com.dat.Order.Order;
-import com.dat.Product.Product;
 import java.awt.Color;
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -15,21 +16,26 @@ import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 
 
-public class ListOrder extends javax.swing.JPanel {
+public class DSDonHangForm extends javax.swing.JPanel {
     DefaultTableModel tblModelDH = new DefaultTableModel();
     DefaultTableModel tblModelSP_DH = new DefaultTableModel();
     private List<DonHang> listOrder;
     private List<CTSP> listCTSP;
     
-    public ListOrder() {
+    QsDelete qs;
+    Success sc;
+    public DSDonHangForm( QsDelete qs,Success sc) {
         
         initComponents();
         initTable();
         getData();
         fillToTableDH();
+        this.qs=qs;
+        this.sc=sc;
         System.out.print(listOrder.get(0).getTT());
         setOpaque(false);
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png")));
+        btnConfirm.setEnabled(false);
+        btnDelete.setEnabled(false);
     }
     
     public void initTable(){
@@ -115,6 +121,45 @@ public class ListOrder extends javax.swing.JPanel {
             }
         };   
         Collections.sort(listOrder, com);
+    }
+    public String chuanhoaMa(String ma){
+        return ma.replaceAll(" ", "").toUpperCase();
+    }
+    // set select cho sản phẩm được tìm thấy
+    public int selectRowTable(Order order){
+        if(order!= null){
+            int i = 0;
+            for(Order or : listOrder){
+                boolean check = or.getMaDon().equals(order.getMaDon());
+                if(check){
+                    return i;
+                }
+                i++;
+            }
+        }
+        return -1;
+    }
+    
+    public void sortEXEC(){
+        String temp =cbxSort.getSelectedItem().toString();
+        switch (temp){
+            case "Cũ đến mới":
+                sortByOld();
+                fillToTableDH();
+                break;
+            case "Mã đơn":
+                sortByMa();
+                fillToTableDH();
+                break;
+            case "Mới đến cũ":
+                sortByNew();
+                fillToTableDH();
+                break;
+            default:
+                getData();
+                fillToTableDH();
+                break;
+       }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -210,17 +255,29 @@ public class ListOrder extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(lblTotal))
                 .addGap(26, 26, 26))
         );
 
         btnConfirm.setText("Xác nhận hoàn thành");
+        btnConfirm.setBorderColor(new java.awt.Color(0, 0, 255));
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
 
         btnDelete.setText("Xóa đơn");
+        btnDelete.setBorderColor(new java.awt.Color(0, 51, 255));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
-        cbxSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên", "Mã đơn", "Mới đến cũ","Cũ đến mới "}));
+        cbxSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên", "Mã đơn", "Mới đến cũ","Cũ đến mới"}));
         cbxSort.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         cbxSort.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -239,8 +296,14 @@ public class ListOrder extends javax.swing.JPanel {
             }
         });
 
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
         btnSearch.setBorderColor(new java.awt.Color(255, 255, 255));
         btnSearch.setRadius(10);
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         lblTB.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         lblTB.setForeground(new java.awt.Color(255, 51, 51));
@@ -301,9 +364,9 @@ public class ListOrder extends javax.swing.JPanel {
                             .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtSearch))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTB, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -323,6 +386,13 @@ public class ListOrder extends javax.swing.JPanel {
             listCTSP = listOrder.get(row).getListSP();
             fillToTableDH_SP();
             lblTotal.setText(convertMoney(totalCost(listCTSP)));
+            if(!listOrder.get(row).getTT()){
+                btnConfirm.setEnabled(true);
+                btnDelete.setEnabled(true);
+            }else{
+                btnConfirm.setEnabled(false);
+                btnDelete.setEnabled(false);
+            }
         }
     }//GEN-LAST:event_tblDHMouseClicked
 
@@ -332,26 +402,89 @@ public class ListOrder extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchFocusGained
 
     private void cbxSortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxSortItemStateChanged
-        String temp =cbxSort.getSelectedItem().toString();
-        switch (temp){
-            case "Cũ đến mới":
-                sortByOld();
-                fillToTableDH();
-                break;
-            case "Mã đơn":
-                sortByMa();
-                fillToTableDH();
-                break;
-            case "Mới đến cũ":
-                sortByNew();
-                fillToTableDH();
-                break;
-            default:
-                getData();
-                fillToTableDH();
-                break;
-       }
+        sortEXEC();
+        
     }//GEN-LAST:event_cbxSortItemStateChanged
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        if(chuanhoaMa(txtSearch.getText()).equals("")){
+            lblTB.setText("*Vui lòng nhập đơn cần tìm!");
+            lblTB.setForeground(new java.awt.Color(255, 51, 51));
+        }else{
+            
+            try{
+            OrderDAO dao = new OrderDAO();
+            
+            Order temp = dao.findOrderByMa(chuanhoaMa(txtSearch.getText()));
+            if(temp==null){
+                lblTB.setText("*Đơn hàng không tồn tại.");
+                lblTB.setForeground(new java.awt.Color(255, 51, 51));
+            }else{
+                lblTB.setText("");
+               int row = selectRowTable(temp);
+               tblDH.setRowSelectionInterval(row,row);
+               txtSearch.setText("");
+               listCTSP=listOrder.get(row).getListSP();
+               fillToTableDH_SP();
+               if(!listOrder.get(row).getTT()){
+                btnConfirm.setEnabled(true);
+                btnDelete.setEnabled(true);
+                }else{
+                   btnConfirm.setEnabled(false);
+                   btnDelete.setEnabled(false);
+               }
+                
+            }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        int row = tblDH.getSelectedRow();
+        if(row>=0){
+           DonHang order = listOrder.get(row);
+            order.setTT(true);
+            try{
+                OrderDAO dao = new OrderDAO();
+                dao.updateTTDonHang(order);
+                getData();
+                sortEXEC();
+                fillToTableDH();
+                sc.setContent("Xác nhận đơn hàng thành công.");
+                sc.setVisible(true);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+               
+ 
+        }
+    }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        qs.setContent("Bạn có muốn xóa đơn hàng không?");
+        qs.setVisible(true);
+        if(qs.isY_n()){
+            int row = tblDH.getSelectedRow();
+            if(row>=0){
+                DonHang order = listOrder.get(row);
+                try{
+                    OrderDAO dao = new OrderDAO();
+                    dao.deleteDonHang(order.getMaDon());
+                    getData();
+                    sortEXEC();
+                    fillToTableDH();
+                    sc.setContent("Xóa đơn hàng thành công.");
+                    sc.setVisible(true);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

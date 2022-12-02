@@ -2,9 +2,9 @@
 package com.dat.MainForm;
 
 import DAO.ProductDAO;
-import com.dat.DialogAdd.Question;
-import com.dat.DialogAdd.Success;
-import com.dat.DialogAdd.Warning;
+import com.dat.Dialog.Question;
+import com.dat.Dialog.Success;
+import com.dat.Dialog.Warning;
 import com.dat.Product.Product;
 import java.awt.Color;
 

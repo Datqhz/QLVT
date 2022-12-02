@@ -3,9 +3,9 @@ package com.dat.MainForm;
 
 import DAO.OrderDAO;
 import DAO.ProductDAO;
-import com.dat.DialogAdd.QuestionOrder;
-import com.dat.DialogAdd.Success;
-import com.dat.DialogAdd.Warning;
+import com.dat.Dialog.QuestionOrder;
+import com.dat.Dialog.Success;
+import com.dat.Dialog.Warning;
 import com.dat.Order.CTSP;
 import com.dat.Order.DonHang;
 import com.dat.Order.Order;
@@ -22,7 +22,7 @@ import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 
-public class CreateOrder extends javax.swing.JPanel {
+public class TaoDonHangForm extends javax.swing.JPanel {
     private List<Product> listSP;
     DefaultTableModel tblModelSP = new DefaultTableModel();
     DefaultTableModel tblModelSP_DH = new DefaultTableModel();
@@ -35,7 +35,7 @@ public class CreateOrder extends javax.swing.JPanel {
     boolean addStatus=false;
     QuestionOrder Qs;
     
-    public CreateOrder( Warning WarningError,QuestionOrder Qs, Success success) {
+    public TaoDonHangForm( Warning WarningError,QuestionOrder Qs, Success success) {
         initComponents();
         initTable();
         getListSP();

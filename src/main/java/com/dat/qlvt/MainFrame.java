@@ -1,10 +1,11 @@
 
 package com.dat.qlvt;
-import com.dat.DialogAdd.Question;
-import com.dat.DialogAdd.QuestionOrder;
-import com.dat.DialogAdd.QuestionUpdate;
-import com.dat.DialogAdd.Success;
-import com.dat.DialogAdd.Warning;
+import com.dat.Dialog.QsDelete;
+import com.dat.Dialog.Question;
+import com.dat.Dialog.QuestionOrder;
+import com.dat.Dialog.QuestionUpdate;
+import com.dat.Dialog.Success;
+import com.dat.Dialog.Warning;
 import com.dat.component.Header;
 import com.dat.component.Menu;
 import net.miginfocom.swing.MigLayout;
@@ -29,7 +30,7 @@ public class MainFrame extends javax.swing.JFrame {
         background.setLayout(layout);
         header = new Header();
         main = new MainForm();
-        menu = new Menu(main, new Warning(this,true),  new Question(this,true) , new Success(this,true),new QuestionUpdate(this,true),new QuestionOrder(this,true));
+        menu = new Menu(main, new Warning(this,true),  new Question(this,true) , new Success(this,true),new QuestionUpdate(this,true),new QuestionOrder(this,true),new QsDelete(this,true));
         background.add(menu,"h 600!, w 200!, spany 2");
         background.add(header, "h 35!, wrap");
         background.add(main, "w 100%, h 100%");
