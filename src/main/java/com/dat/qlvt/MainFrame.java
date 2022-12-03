@@ -1,5 +1,6 @@
 
 package com.dat.qlvt;
+import com.dat.Dialog.LoginFom;
 import com.dat.Dialog.QsDelete;
 import com.dat.Dialog.Question;
 import com.dat.Dialog.QuestionOrder;
@@ -34,6 +35,8 @@ public class MainFrame extends javax.swing.JFrame {
         background.add(menu,"h 600!, w 200!, spany 2");
         background.add(header, "h 35!, wrap");
         background.add(main, "w 100%, h 100%");
+        LoginFom login = new LoginFom(this,true,new Warning(this,true));
+        login.setVisible(true);
     }
    
 
