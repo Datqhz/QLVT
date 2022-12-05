@@ -5,6 +5,7 @@ import com.dat.Order.CTSP;
 import com.dat.Order.DatHang;
 import com.dat.Order.DonHang;
 import com.dat.Order.Order;
+import com.dat.Order.XacNhan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -80,6 +81,26 @@ public class OrderDAO {
         return listCTDDH;
     }
     
+//    public List<CTSP> loadCTPN(String maphieu) throws Exception{
+//        List<CTSP> listCTPN = new ArrayList<>();
+//        String sql = "select * from CTDDH where MAPN =?";
+//        try (
+//            Connection con = DatabaseHelper.openConnection(); 
+//            PreparedStatement pstm = con.prepareStatement(sql);) {
+//            pstm.setString(1, maphieu);
+//            ResultSet rs = pstm.executeQuery();
+//            while (rs.next()) {
+//                CTSP ct  = new CTSP();
+//                ct.setMa(rs.getString(2));
+//                ct.setTenSP(getNameVT(ct.getMaSP()));
+//                ct.setSoLuong(rs.getInt(3));
+//                ct.setGia(rs.getInt(4));
+//                listCTDDH.add(ct);
+//            }
+//            
+//        }
+//        return listCTPN;
+//    }
     // lấy danh sách đơn hàng
      public List<DonHang> loadListDonHang() throws Exception {
         List<DonHang> listOrder = new ArrayList<>();
@@ -117,6 +138,7 @@ public class OrderDAO {
                 temps.setMaDon(chuanhoaMa(rs.getString(1)));
                 temps.setDate(rs.getString(2));
                 temps.setNhaCungCap(rs.getString(3));
+                temps.setTrangThai(rs.getString(4));
                 temps.setListSP(loadCTDDH(temps.getMaDon()));
                 listTheOrders.add(temps);
             }
@@ -162,7 +184,7 @@ public class OrderDAO {
         }
      }
      public void addTheOrders(DatHang theOrders)throws Exception{
-         String sql = "insert into DATHANG(MASODDH,NGAY,NHACC) values (?,?,?)";
+         String sql = "insert into DATHANG(MASODDH,NGAY,NHACC,TRANGTHAI) values (?,?,?,?)";
          String sql1 = "insert into CTDDH(MASODDH,MAVT,SOLUONG,DONGIA) values (?,?,?,?)";
          String updateSLT = "{call updateSLT}";
         try (
@@ -174,9 +196,35 @@ public class OrderDAO {
             pstm.setString(1, theOrders.getMaDon());
             pstm.setString(2, theOrders.getDate());
             pstm.setString(3, theOrders.getNhaCungCap());
+            pstm.setString(4,theOrders.getTrangThai());
             pstm.executeUpdate();
             for(CTSP ct : theOrders.getListSP()){
                 addCT.setString(1, theOrders.getMaDon());
+                addCT.setString(2, ct.getMaSP());
+                addCT.setString(3,Integer.toString(ct.getSoLuong()));
+                addCT.setString(4,Integer.toString(ct.getGia()));
+                addCT.executeUpdate();
+            }
+            update.executeUpdate();
+        }
+     }
+     
+     public void addXacNhan(XacNhan confirm)throws Exception{
+         String sql = "insert into PHIEUNHAP(MAPN,MASODDH,NGAY) values (?,?,?)";
+         String sql1 = "insert into CTPN(MAPN,MAVT,SOLUONG,DONGIA) values (?,?,?,?)";
+         String updateSL = "{call updateSL}";
+        try (
+                Connection con = DatabaseHelper.openConnection();  
+                PreparedStatement pstm = con.prepareStatement(sql);
+                PreparedStatement addCT = con.prepareStatement(sql1);
+                PreparedStatement update = con.prepareStatement(updateSL)) 
+        {
+            pstm.setString(1, confirm.getMaPhieu());
+            pstm.setString(2, confirm.getMaDon());
+            pstm.setString(3, confirm.getDate());
+            pstm.executeUpdate();
+            for(CTSP ct : confirm.getListSP()){
+                addCT.setString(1, confirm.getMaPhieu());
                 addCT.setString(2, ct.getMaSP());
                 addCT.setString(3,Integer.toString(ct.getSoLuong()));
                 addCT.setString(4,Integer.toString(ct.getGia()));

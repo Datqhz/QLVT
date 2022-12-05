@@ -15,6 +15,7 @@ import com.dat.MainForm.MainForm;
 //import com.dat.MainForm.TheOrders;
 import com.dat.MainForm.Remove;
 import com.dat.MainForm.ShowWareHouse;
+import com.dat.MainForm.TheOrders;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -169,7 +170,7 @@ public class Menu extends javax.swing.JPanel {
 
         lblListTheOrders.setBackground(new java.awt.Color(11, 13, 171));
         lblListTheOrders.setForeground(new java.awt.Color(255, 255, 255));
-        lblListTheOrders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-import-goods-24.png"))); // NOI18N
+        lblListTheOrders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add-box-insert-button-plus.png"))); // NOI18N
         lblListTheOrders.setText("Danh sách đơn đặt hàng");
         lblListTheOrders.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -303,7 +304,7 @@ public class Menu extends javax.swing.JPanel {
         lblWarehouse.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblTheOrders.setOpaque(true);
-//        main.showForm(new TheOrders(WarningError,QsO , sc));
+        main.showForm(new TheOrders(WarningError,QsO , sc));
     }//GEN-LAST:event_lblTheOrdersMousePressed
 
     private void lblListTheOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListTheOrdersMouseClicked
@@ -314,7 +315,7 @@ public class Menu extends javax.swing.JPanel {
         lblWarehouse.setOpaque(false);
         lblTheOrders.setOpaque(false);
         lblListTheOrders.setOpaque(true);
-        main.showForm(new ListTheOrders());
+        main.showForm(new ListTheOrders(WarningError, sc));
     }//GEN-LAST:event_lblListTheOrdersMouseClicked
 
 

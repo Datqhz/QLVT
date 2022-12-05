@@ -39,7 +39,7 @@ public class TheOrders extends javax.swing.JPanel {
         initComponents();
         initTable();
         getListSP();
-        //getListOrder();
+        getListTheOrders();
         fillToTable();
         btnAdd.setEnabled(false);
         btnRemove.setEnabled(false);
@@ -139,13 +139,13 @@ public class TheOrders extends javax.swing.JPanel {
         }
         tblModelSP_DH.fireTableDataChanged();
     }
-    public DatHang getInfoOrder(){
-       DatHang order = new DatHang();
-       order.setMaDon(chuanhoaMa(txtMasoDDH.getText()));
-       order.setNhaCungCap(chuanhoaTen(txtNhaCC.getText()));
-       order.setDate(getDate());
-       order.setListSP(listCTSP);
-       return order;
+    public DatHang getInfoTheOrder(){
+       DatHang theorder = new DatHang();
+       theorder.setMaDon(chuanhoaMa(txtMasoDDH.getText()));
+       theorder.setNhaCungCap(chuanhoaTen(txtNhaCC.getText()));
+       theorder.setDate(getDate());
+       theorder.setListSP(listCTSP);
+       return theorder;
     }
     public String convertMoney(long money){
         Locale localeVN = new Locale("vi", "VN");
@@ -173,12 +173,12 @@ public class TheOrders extends javax.swing.JPanel {
         int row = tblSP_DH.getSelectedRow();
         CTSP ct = listCTSP.get(row);
         
-        for(Product prd : listSP){
-            if(prd.getMaSp().equals(ct.getMaSP())){
-                prd.setSlTon(prd.getSlTon()+ct.getSoLuong());
-                break;
-            }
-        }
+//        for(Product prd : listSP){
+//            if(prd.getMaSp().equals(ct.getMaSP())){
+//                prd.setSlTon(prd.getSlTon()+ct.getSoLuong());
+//                break;
+//            }
+//        }
         listCTSP.remove(row);
     }
     
@@ -326,15 +326,14 @@ public class TheOrders extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNhaCC, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNhaCC, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -479,17 +478,19 @@ public class TheOrders extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(26, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66)
+                        .addGap(76, 76, 76)
                         .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(71, 71, 71)
+                        .addGap(74, 74, 74)
                         .addComponent(btnRenew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(58, 58, 58)))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addGap(72, 72, 72))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -537,6 +538,7 @@ public class TheOrders extends javax.swing.JPanel {
                 fillToTable();
                 fillToTableDH();
                 txtSoLuong.setText("");
+                txtGiaBan.setText("");
                 lblTotal.setText(convertMoney(updateTotalCost()));
         }else {
             WarningError.setContent("Vui lòng nhập đủ thông tin yêu cầu.");
@@ -637,7 +639,7 @@ public class TheOrders extends javax.swing.JPanel {
                addStatus=false;
             }
             if(addStatus){
-                DatHang theOrders = getInfoOrder();
+                DatHang theOrders = getInfoTheOrder();
                 Qs.setCn(false);
                 Qs.setContent(theOrders.getMaDon(),theOrders.getNhaCungCap(),theOrders.getDate(),theOrders.getListSP());
                 Qs.setVisible(true);
