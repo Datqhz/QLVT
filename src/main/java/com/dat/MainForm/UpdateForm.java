@@ -2,9 +2,9 @@
 package com.dat.MainForm;
 
 import DAO.ProductDAO;
-import com.dat.DialogAdd.Question;
-import com.dat.DialogAdd.QuestionUpdate;
-import com.dat.DialogAdd.Success;
+import com.dat.Dialog.Question;
+import com.dat.Dialog.QuestionUpdate;
+import com.dat.Dialog.Success;
 import com.dat.Product.Product;
 import java.text.NumberFormat;
 import java.util.Collections;
@@ -14,14 +14,14 @@ import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
 
 
-public class Remove extends javax.swing.JPanel {
+public class UpdateForm extends javax.swing.JPanel {
     List<Product> list;
     Question Qs ;
     Success success;
     QuestionUpdate QsU;
     private Product temp;
     private DefaultTableModel tblModel = new DefaultTableModel();
-    public Remove(Question Qs, Success sc, QuestionUpdate QsU) {
+    public UpdateForm(Question Qs, Success sc, QuestionUpdate QsU) {
         initComponents();
         initTable();
         btnRemove.setEnabled(false);
@@ -96,17 +96,18 @@ public class Remove extends javax.swing.JPanel {
         tblSP = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
-        btnSearch = new com.dat.Swing.ButtonCustom();
         lblThongbao = new javax.swing.JLabel();
         btnUpdate = new com.dat.Swing.ButtonCustom();
+        btnSearch = new com.dat.Swing.ButtonCustom();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
 
         jLabel1.setText("Danh sách sản phẩm:");
 
         btnRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/remove.png"))); // NOI18N
         btnRemove.setText("Xóa");
-        btnRemove.setBorderColor(new java.awt.Color(0, 255, 255));
+        btnRemove.setBorderColor(new java.awt.Color(102, 255, 255));
         btnRemove.setColorOver(new java.awt.Color(153, 255, 255));
         btnRemove.setRadius(10);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -147,17 +148,7 @@ public class Remove extends javax.swing.JPanel {
 
         jLabel6.setText("Tìm kiếm theo mã sản phẩm:");
 
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
-        btnSearch.setBorderColor(new java.awt.Color(255, 255, 255));
-        btnSearch.setColorOver(new java.awt.Color(153, 255, 255));
-        btnSearch.setOpaque(true);
-        btnSearch.setRadius(10);
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
-            }
-        });
-
+        lblThongbao.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         lblThongbao.setForeground(new java.awt.Color(255, 0, 0));
 
         btnUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-update-24.png"))); // NOI18N
@@ -168,6 +159,17 @@ public class Remove extends javax.swing.JPanel {
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUpdateActionPerformed(evt);
+            }
+        });
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        btnSearch.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnSearch.setColorClick(new java.awt.Color(0, 204, 255));
+        btnSearch.setColorOver(new java.awt.Color(0, 255, 255));
+        btnSearch.setRadius(10);
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -189,10 +191,10 @@ public class Remove extends javax.swing.JPanel {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel1)
                                     .addComponent(lblThongbao, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(0, 189, Short.MAX_VALUE)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -243,18 +245,18 @@ public class Remove extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(274, 274, 274))
+                        .addGap(258, 258, 258))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSearch)
                             .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblThongbao)
-                        .addGap(18, 18, 18)
+                        .addComponent(lblThongbao, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(31, 31, 31))))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -293,33 +295,6 @@ public class Remove extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnRemoveActionPerformed
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        if(chuanhoaMa(txtSearch.getText()).equals("")){
-            lblThongbao.setText("*Vui lòng nhập mã sản phẩm cần tìm!");
-        }else{
-            
-            try{
-            ProductDAO dao = new ProductDAO();
-            temp = dao.findProductByMa(chuanhoaMa(txtSearch.getText()));
-            if(temp==null){
-                lblThongbao.setText("*Sản phẩm không tồn tại.");
-            }else{
-                lblThongbao.setText("");
-                txtMasp.setText(temp.getMaSp());
-                txtTensp.setText(temp.getTenSp());
-                txtDVT.setText(temp.getDonViTinh());
-                txtGia.setText(Integer.toString(temp.getGiaBan()));
-                btnRemove.setEnabled(true);
-                btnUpdate.setEnabled(true);
-            }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            
-        }
-        
-    }//GEN-LAST:event_btnSearchActionPerformed
-
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         Product prd = new Product();
         prd.setMaSp(txtMasp.getText());
@@ -346,6 +321,33 @@ public class Remove extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        if(chuanhoaMa(txtSearch.getText()).equals("")){
+            lblThongbao.setText("*Vui lòng nhập mã sản phẩm cần tìm!");
+        }else{
+            
+            try{
+            ProductDAO dao = new ProductDAO();
+            temp = dao.findProductByMa(chuanhoaMa(txtSearch.getText()));
+            if(temp==null){
+                lblThongbao.setText("*Sản phẩm không tồn tại.");
+            }else{
+                lblThongbao.setText("");
+                txtMasp.setText(temp.getMaSp());
+                txtTensp.setText(temp.getTenSp());
+                txtDVT.setText(temp.getDonViTinh());
+                txtGia.setText(Integer.toString(temp.getGiaBan()));
+                btnRemove.setEnabled(true);
+                btnUpdate.setEnabled(true);
+            }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btnSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -3,9 +3,9 @@ package com.dat.MainForm;
 
 import DAO.OrderDAO;
 import DAO.ProductDAO;
-import com.dat.DialogAdd.QuestionOrder;
-import com.dat.DialogAdd.Success;
-import com.dat.DialogAdd.Warning;
+import com.dat.Dialog.QuestionOrder;
+import com.dat.Dialog.Success;
+import com.dat.Dialog.Warning;
 import com.dat.Order.CTSP;
 import com.dat.Order.DatHang;
 import com.dat.Order.Order;

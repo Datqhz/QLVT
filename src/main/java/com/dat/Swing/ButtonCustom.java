@@ -14,8 +14,9 @@ public class ButtonCustom extends JButton{
     public ButtonCustom(){
         //init color
         setColor(Color.WHITE);
-        colorOver = new Color(179,250,160);
-        borderColor = new Color(30,136,56);
+        colorOver = new Color(179, 250, 160);
+        colorClick = new Color(152, 184, 144);
+        borderColor = new Color(30, 136, 56);
         setContentAreaFilled(false);
         //add event
         addMouseListener(new MouseAdapter(){

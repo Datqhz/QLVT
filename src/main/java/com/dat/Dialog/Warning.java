@@ -1,5 +1,5 @@
 
-package com.dat.DialogAdd;
+package com.dat.Dialog;
 
 import java.awt.Color;
 
@@ -11,6 +11,7 @@ public class Warning extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        lblContent.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     }
     
     //set content dialog
@@ -28,6 +29,7 @@ public class Warning extends javax.swing.JDialog {
         btnWarning = new com.dat.Swing.ButtonCustom();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Warning");
         setBackground(new java.awt.Color(255, 255, 255));
         setModal(true);
 
@@ -35,6 +37,8 @@ public class Warning extends javax.swing.JDialog {
 
         btnWarning.setText("Đã hiểu");
         btnWarning.setBorderColor(new java.awt.Color(51, 255, 255));
+        btnWarning.setColorClick(new java.awt.Color(0, 204, 255));
+        btnWarning.setColorOver(new java.awt.Color(0, 255, 255));
         btnWarning.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnWarningActionPerformed(evt);
@@ -48,18 +52,18 @@ public class Warning extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(45, 45, 45)
-                .addComponent(lblContent)
+                .addGap(18, 18, 18)
+                .addComponent(lblContent, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(150, Short.MAX_VALUE)
+                .addContainerGap(146, Short.MAX_VALUE)
                 .addComponent(btnWarning, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(147, 147, 147))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(32, Short.MAX_VALUE)
+                .addContainerGap(36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)

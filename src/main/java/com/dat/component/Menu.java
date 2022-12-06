@@ -2,20 +2,21 @@
 package com.dat.component;
 
 
-import com.dat.DialogAdd.Question;
-import com.dat.DialogAdd.QuestionOrder;
-import com.dat.DialogAdd.QuestionUpdate;
-import com.dat.DialogAdd.Success;
-import com.dat.DialogAdd.Warning;
+import com.dat.Dialog.QsDelete;
+import com.dat.Dialog.Question;
+import com.dat.Dialog.QuestionOrder;
+import com.dat.Dialog.QuestionUpdate;
+import com.dat.Dialog.Success;
+import com.dat.Dialog.Warning;
 import com.dat.MainForm.Add;
 import com.dat.MainForm.ListTheOrders;
-import com.dat.MainForm.CreateOrder;
-import com.dat.MainForm.ListOrder;
+import com.dat.MainForm.TaoDonHangForm;
+import com.dat.MainForm.DSDonHangForm;
 import com.dat.MainForm.MainForm;
-//import com.dat.MainForm.TheOrders;
-import com.dat.MainForm.Remove;
-import com.dat.MainForm.ShowWareHouse;
 import com.dat.MainForm.TheOrders;
+import com.dat.MainForm.TheOrders;
+import com.dat.MainForm.UpdateForm;
+import com.dat.MainForm.KhoForm;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -30,7 +31,8 @@ public class Menu extends javax.swing.JPanel {
     QuestionUpdate QsU;
     MainForm main;
     QuestionOrder QsO;
-    public Menu(MainForm main, Warning WarningError, Question Qs,  Success sc, QuestionUpdate QsU,QuestionOrder QsO) {
+    QsDelete dl;
+    public Menu(MainForm main, Warning WarningError, Question Qs,  Success sc, QuestionUpdate QsU,QuestionOrder QsO,QsDelete dl) {
         initComponents();
         this.main = main;
         setOpaque(false);
@@ -41,6 +43,7 @@ public class Menu extends javax.swing.JPanel {
         this.sc = sc;
         this.QsU=QsU;
         this.QsO=QsO;
+        this.dl=dl;
     }
     
     @Override
@@ -260,7 +263,7 @@ public class Menu extends javax.swing.JPanel {
         lblTheOrders.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblRemove.setOpaque(true);
-        main.showForm(new Remove(Qs,sc,QsU));
+        main.showForm(new UpdateForm(Qs,sc,QsU));
     }//GEN-LAST:event_lblRemoveMouseClicked
 
     private void lblCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCreateMouseClicked
@@ -271,7 +274,7 @@ public class Menu extends javax.swing.JPanel {
         lblTheOrders.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblCreate.setOpaque(true);
-        main.showForm(new CreateOrder(WarningError,QsO , sc));
+        main.showForm(new TaoDonHangForm(WarningError,QsO , sc));
     }//GEN-LAST:event_lblCreateMouseClicked
 
     private void lblListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListMouseClicked
@@ -282,7 +285,7 @@ public class Menu extends javax.swing.JPanel {
         lblTheOrders.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblList.setOpaque(true);
-        main.showForm(new ListOrder());
+        main.showForm(new DSDonHangForm(dl,sc));
     }//GEN-LAST:event_lblListMouseClicked
 
     private void lblWarehouseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblWarehouseMousePressed
@@ -293,7 +296,7 @@ public class Menu extends javax.swing.JPanel {
         lblAdd.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblWarehouse.setOpaque(true);
-        main.showForm(new ShowWareHouse());
+        main.showForm(new KhoForm());
     }//GEN-LAST:event_lblWarehouseMousePressed
 
     private void lblTheOrdersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheOrdersMousePressed
@@ -315,7 +318,7 @@ public class Menu extends javax.swing.JPanel {
         lblWarehouse.setOpaque(false);
         lblTheOrders.setOpaque(false);
         lblListTheOrders.setOpaque(true);
-        main.showForm(new ListTheOrders(WarningError, sc));
+        main.showForm(new ListTheOrders(WarningError,dl , sc));
     }//GEN-LAST:event_lblListTheOrdersMouseClicked
 
 
