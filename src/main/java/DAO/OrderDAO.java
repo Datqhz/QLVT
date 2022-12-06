@@ -5,7 +5,7 @@ import com.dat.Order.CTSP;
 import com.dat.Order.DatHang;
 import com.dat.Order.DonHang;
 import com.dat.Order.Order;
-import com.dat.Order.XacNhan;
+import com.dat.Order.PhieuNhap;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -139,7 +139,7 @@ public class OrderDAO {
                 temps.setMaDon(chuanhoaMa(rs.getString(1)));
                 temps.setDate(rs.getString(2));
                 temps.setNhaCungCap(rs.getString(3));
-                temps.setTrangThai(rs.getString(4));
+                temps.setTT(rs.getBoolean(4));
                 temps.setListSP(loadCTDDH(temps.getMaDon()));
                 listTheOrders.add(temps);
             }
@@ -188,7 +188,7 @@ public class OrderDAO {
             pstm.setString(1, theOrders.getMaDon());
             pstm.setString(2, theOrders.getDate());
             pstm.setString(3, theOrders.getNhaCungCap());
-            pstm.setString(4,theOrders.getTrangThai());
+            pstm.setString(4,Boolean.toString(theOrders.getTT()));
             pstm.executeUpdate();
             for(CTSP ct : theOrders.getListSP()){
                 addCT.setString(1, theOrders.getMaDon());
@@ -201,30 +201,6 @@ public class OrderDAO {
         }
      }
      
-     public void addXacNhan(XacNhan confirm)throws Exception{
-         String sql = "insert into PHIEUNHAP(MAPN,MASODDH,NGAY) values (?,?,?)";
-         String sql1 = "insert into CTPN(MAPN,MAVT,SOLUONG,DONGIA) values (?,?,?,?)";
-         String updateSL = "{call updateSL}";
-        try (
-                Connection con = DatabaseHelper.openConnection();  
-                PreparedStatement pstm = con.prepareStatement(sql);
-                PreparedStatement addCT = con.prepareStatement(sql1);
-                PreparedStatement update = con.prepareStatement(updateSL)) 
-        {
-            pstm.setString(1, confirm.getMaPhieu());
-            pstm.setString(2, confirm.getMaDon());
-            pstm.setString(3, confirm.getDate());
-            pstm.executeUpdate();
-            for(CTSP ct : confirm.getListSP()){
-                addCT.setString(1, confirm.getMaPhieu());
-                addCT.setString(2, ct.getMaSP());
-                addCT.setString(3,Integer.toString(ct.getSoLuong()));
-                addCT.setString(4,Integer.toString(ct.getGia()));
-                addCT.executeUpdate();
-            }
-            update.executeUpdate();
-        }
-     }
      public String chuanhoaMa(String ma){
         return ma.replaceAll(" ", "");
     }
@@ -243,7 +219,46 @@ public class OrderDAO {
             pstm.executeUpdate();
         }
      }
+//     public void updateTTDatHang(DatHang theorder)throws Exception{
+//         String sql = "Update DATHANG set NGAY=?,NhaCC=?,TRANGTHAI=? where MASODDH = ?";
+//         try (
+//                Connection con = DatabaseHelper.openConnection();  
+//                PreparedStatement pstm = con.prepareStatement(sql);) 
+//        {
+//            pstm.setString(1, theorder.getDate());
+//            pstm.setString(2, theorder.getNhaCungCap());
+//            pstm.setString(3, Boolean.toString(theorder.getTT()));
+//            pstm.setString(4, theorder.getMaDon());
+//            pstm.executeUpdate();
+//        }
+//     }
      
+     public void addPhieuNhap(String mapn,DatHang theorder, String ngay)throws Exception{
+         String sql = "{call tao_phieu_nhap(?,?,?)}";
+         String updateDDH = "Update DATHANG set NGAY=? NhaCC=? TRANGTHAI=? where MASODDH = ?";
+           
+         String updateSLT = "{call updateSLT}";
+         try (
+                Connection con = DatabaseHelper.openConnection();  
+                PreparedStatement pstm = con.prepareStatement(sql);
+                 PreparedStatement updateTTDDH = con.prepareStatement(updateDDH);
+                PreparedStatement update = con.prepareStatement(updateSLT)) 
+        {
+            updateTTDDH.setString(1, theorder.getDate());
+            updateTTDDH.setString(2, theorder.getNhaCungCap());
+            updateTTDDH.setString(3, Boolean.toString(theorder.getTT()));
+            updateTTDDH.setString(4, theorder.getMaDon());
+            pstm.setString(1, mapn);
+            pstm.setString(2, theorder.getMaDon());
+            pstm.setString(3, ngay);
+            pstm.executeQuery();
+            
+            pstm.executeUpdate();
+            update.executeUpdate();
+            updateTTDDH.executeUpdate();
+        }
+     }
+
      //xóa đơn hàng
      public void deleteDonHang(String madon) throws Exception{
          String sql = "Delete CTPX where MAPX=?";
@@ -262,7 +277,24 @@ public class OrderDAO {
             update.executeUpdate();
         }
      }
-     
+     public void deleteDatHang(String madon) throws Exception{
+         String sql = "Delete CTDDH where MASODDH=?";
+         String sql1 = "Delete DATHANG where MASODDH=?";
+         //String updateSLT = "{call updateSLT}";
+         try (
+                Connection con = DatabaseHelper.openConnection();  
+                PreparedStatement deleteCT = con.prepareStatement(sql);
+                 PreparedStatement deleteDH = con.prepareStatement(sql1);
+                 ) //PreparedStatement update = con.prepareStatement(updateSLT)) 
+        {
+            deleteCT.setString(1, madon);
+            deleteDH.setString(1, madon);
+            deleteCT.executeUpdate();
+            deleteDH.executeUpdate();
+          
+        }
+     }
+
      
      //Tìm kiếm đơn hàng bằng mã đơn
     public Order findOrderByMa(String madon) throws Exception{

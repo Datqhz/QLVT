@@ -2,12 +2,17 @@
 package com.dat.MainForm;
 
 import DAO.OrderDAO;
-import com.dat.DialogAdd.Success;
-import com.dat.DialogAdd.Warning;
+import com.dat.Dialog.QsDelete;
+import com.dat.Dialog.Success;
+import com.dat.Dialog.Warning;
 import com.dat.Order.CTSP;
 import com.dat.Order.DatHang;
-import com.dat.Order.XacNhan;
+import com.dat.Order.Order;
+//import com.dat.Order.PhieuNhap;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
@@ -18,24 +23,24 @@ public class ListTheOrders extends javax.swing.JPanel {
     DefaultTableModel tblModelSP_DDH = new DefaultTableModel();
     private List<DatHang> listTheOrders;
     private List<CTSP> listCTSP;
-    private boolean ttAdd= false;
     Warning WarningError;
-    Success success;
-    boolean addStatus=false;
-    private XacNhan confirm;
-    boolean y_n,cn;
+    QsDelete qs;
+    Success sc;
+
     
-    public ListTheOrders(Warning WarningError, Success success) {
+    public ListTheOrders(Warning WarningError,QsDelete qs, Success sc) {
         initComponents();
         initTable();
         fillToTableDDH();
         this.WarningError = WarningError;
-        this.success = success;
-        y_n=false;
-        cn=false;
-        btnConfirm.setEnabled(false);
-        btnRemove.setEnabled(false);
+        this.qs = qs;
+        this.sc = sc;
+//        y_n=false;
+//        cn=false;
         setOpaque(false);
+        btnConfirm.setEnabled(false);
+        btnDelete.setEnabled(false);
+       
     }
     public void initTable(){
         String[] header = new String[]{"Mã số đơn đặt hàng", "Nhà cung cấp", "Ngày lập", "Thành tiền","Trạng thái"};
@@ -55,7 +60,7 @@ public class ListTheOrders extends javax.swing.JPanel {
             e.printStackTrace();
         }
         for(DatHang order : listTheOrders){
-            Object[] row = new Object[]{order.getMaDon(),order.getNhaCungCap(),order.getDate(),convertMoney(totalCost(order.getListSP())), order.getTrangThai()};
+            Object[] row = new Object[]{order.getMaDon(),order.getNhaCungCap(),order.getDate(),convertMoney(totalCost(order.getListSP())), convertTT(order)};
             tblModelDDH.addRow(row);
         }
         tblModelDDH.fireTableDataChanged();
@@ -81,13 +86,6 @@ public class ListTheOrders extends javax.swing.JPanel {
         }
         return total;
     }
-    public void removeSPFromDDH(){
-        int row = tblDDH.getSelectedRow();
-        DatHang order = listTheOrders.get(row);
-        
-        listTheOrders.remove(row);
-        //ListCTSP.remove();
-    }
     private void getListTheOrders(){
         try{
             OrderDAO dao = new OrderDAO();
@@ -99,24 +97,33 @@ public class ListTheOrders extends javax.swing.JPanel {
     public String chuanhoaMa(String ma){
         return ma.replaceAll(" ", "").toUpperCase();
     }
-    public XacNhan getInfoConfirm(){
-       XacNhan confirm = new XacNhan();
-       confirm.setMaPhieu(chuanhoaMa(txtMaPN.getText()));
-       //confirm.setListSP(listCTSP);
-       return confirm;
-    }
     public void reset(){
         txtMaPN.setText("");
+        dateNgayXacNhan.setCalendar(null);
         listCTSP.clear();
         fillToTableDDH();
         fillToTableDDH_SP();
         lblTotal.setText("");
     }
-    public boolean isY_n() {
-        return y_n;
+    public String convertTT(Order order){
+        if(order.getTT()){
+            return "Đã thanh toán";
+        }else{
+            return "Chưa thanh toán";
+        }
     }
-    public void setCn(boolean cn) {
-        this.cn = cn;
+    public String getDate(){
+        SimpleDateFormat g = new SimpleDateFormat("yyyy-MM-dd");
+        if(dateNgayXacNhan.getDate()!=null){
+        String date = g.format(dateNgayXacNhan.getDate());
+        return date;}
+        else {
+            LocalDate localDate = LocalDate.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            String date = localDate.format(formatter);
+            return date;
+        }
+            
     }
         @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -133,8 +140,11 @@ public class ListTheOrders extends javax.swing.JPanel {
         lblTotal = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         txtMaPN = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        dateNgayXacNhan = new com.toedter.calendar.JDateChooser();
+        jSeparator1 = new javax.swing.JSeparator();
         btnConfirm = new com.dat.Swing.ButtonCustom();
-        btnRemove = new com.dat.Swing.ButtonCustom();
+        btnDelete = new com.dat.Swing.ButtonCustom();
         jLabel2 = new javax.swing.JLabel();
 
         tblDDH.setModel(new javax.swing.table.DefaultTableModel(
@@ -177,6 +187,10 @@ public class ListTheOrders extends javax.swing.JPanel {
 
         jLabel5.setText("Mã phiếu nhập hàng:");
 
+        txtMaPN.setBorder(null);
+
+        jLabel6.setText("Ngày:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -187,24 +201,31 @@ public class ListTheOrders extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(62, 62, 62))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
+                                .addGap(1, 1, 1)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 23, Short.MAX_VALUE))
+                                .addGap(0, 49, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtMaPN, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(83, 83, 83))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jSeparator1)
+                                            .addComponent(txtMaPN, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(dateNgayXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,9 +235,15 @@ public class ListTheOrders extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(txtMaPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dateNgayXacNhan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -225,16 +252,22 @@ public class ListTheOrders extends javax.swing.JPanel {
         );
 
         btnConfirm.setText("Xác nhận");
+        btnConfirm.setBorderColor(new java.awt.Color(0, 102, 255));
+        btnConfirm.setColorClick(new java.awt.Color(0, 153, 255));
+        btnConfirm.setColorOver(new java.awt.Color(0, 204, 255));
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmActionPerformed(evt);
             }
         });
 
-        btnRemove.setText("Xóa Đơn");
-        btnRemove.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setText("Xóa Đơn");
+        btnDelete.setBorderColor(new java.awt.Color(0, 51, 255));
+        btnDelete.setColorClick(new java.awt.Color(0, 153, 255));
+        btnDelete.setColorOver(new java.awt.Color(0, 204, 255));
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRemoveActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -258,18 +291,18 @@ public class ListTheOrders extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(21, Short.MAX_VALUE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(115, 115, 115)
                         .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(147, 147, 147))))
+                        .addGap(157, 157, 157)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(148, 148, 148))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 15, Short.MAX_VALUE)
+                .addGap(0, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -279,9 +312,9 @@ public class ListTheOrders extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -292,61 +325,85 @@ public class ListTheOrders extends javax.swing.JPanel {
             listCTSP = listTheOrders.get(row).getListSP();
             fillToTableDDH_SP();
             lblTotal.setText(convertMoney(totalCost(listCTSP)));
-            btnConfirm.setEnabled(true);
+            if(!listTheOrders.get(row).getTT()){
+                btnConfirm.setEnabled(true);
+                btnDelete.setEnabled(true);
+            }else{
+               btnConfirm.setEnabled(false);
+               btnDelete.setEnabled(false); 
+            }
+            
+            
         }
     }//GEN-LAST:event_tblDDHMouseClicked
 
-    private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        removeSPFromDDH();
-        fillToTableDDH();
-        fillToTableDDH_SP();
-        lblTotal.setText(convertMoney(totalCost(listCTSP)));
-        btnRemove.setEnabled(false);
-    }//GEN-LAST:event_btnRemoveActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+       qs.setContent("Bạn có muốn xóa đơn hàng không?");
+        qs.setVisible(true);
+        if(qs.isY_n()){
+            int row = tblDDH.getSelectedRow();
+            if(row>=0){
+                DatHang theorder = listTheOrders.get(row);
+                try{
+                    OrderDAO dao = new OrderDAO();
+                    dao.deleteDatHang(theorder.getMaDon());
+                    getListTheOrders();
+                    //sortEXEC();
+                    fillToTableDDH();
+                    sc.setContent("Xóa đơn hàng thành công.");
+                    sc.setVisible(true);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        try{
-            if(listTheOrders.isEmpty()){
-               addStatus=false;
-            }
-            if(addStatus){
-//                XacNhan confirm = getInfoConfirm();
-//                setCn(false);
-//                confirm.getMaPhieu();
-//                setVisible(true);
-                  txtMaPN.setText("");
-                if(isY_n()){
-                    OrderDAO dao = new OrderDAO();
-                    dao.addXacNhan(confirm);
-                    
-                    reset();
-                    getListTheOrders();
-                    success.setContent("Bạn đã xác nhận đơn đặt hàng thành công.");
-                    success.setVisible(true);
-                    addStatus=false;
-                    
-                }
+        if(chuanhoaMa(txtMaPN.getText()).equals("")){
+               WarningError.setContent("Vui lòng điền mã phiếu nhập hàng!");
+               WarningError.setVisible(true);
             }else{
-                WarningError.setContent("Vui lòng điền mã phiếu nhập hàng!");
-                WarningError.setVisible(true);
+                          
+                int row = tblDDH.getSelectedRow();
+                if(row>=0){
+                DatHang theorder = listTheOrders.get(row);
+                theorder.setTT(true);
+                try{
+                    OrderDAO dao = new OrderDAO();
+                    //dao.updateTTDatHang(theorder);
+               
+                    getListTheOrders();
+      
+                    dao.addPhieuNhap(txtMaPN.getText(),theorder,getDate());
+                    //sortEXEC();
+                    fillToTableDDH();
+                    sc.setContent("Xác nhận đơn hàng thành công.");
+                    sc.setVisible(true);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }     
+                }
             }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        
     }//GEN-LAST:event_btnConfirmActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.dat.Swing.ButtonCustom btnConfirm;
-    private com.dat.Swing.ButtonCustom btnRemove;
+    private com.dat.Swing.ButtonCustom btnDelete;
+    private com.toedter.calendar.JDateChooser dateNgayXacNhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblDDH;
     private javax.swing.JTable tblSP_DDH;

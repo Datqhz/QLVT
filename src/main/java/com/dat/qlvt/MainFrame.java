@@ -36,7 +36,7 @@ public class MainFrame extends javax.swing.JFrame {
         background.add(header, "h 35!, wrap");
         background.add(main, "w 100%, h 100%");
         LoginFom login = new LoginFom(this,true,new Warning(this,true));
-        login.setVisible(true);
+        //login.setVisible(true);
     }
    
 

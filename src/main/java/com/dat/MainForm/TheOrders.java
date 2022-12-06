@@ -147,6 +147,7 @@ public class TheOrders extends javax.swing.JPanel {
        theorder.setListSP(listCTSP);
        return theorder;
     }
+    
     public String convertMoney(long money){
         Locale localeVN = new Locale("vi", "VN");
         NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
