@@ -235,7 +235,7 @@ public class OrderDAO {
      
      public void addPhieuNhap(String mapn,DatHang theorder, String ngay)throws Exception{
          String sql = "{call tao_phieu_nhap(?,?,?)}";
-         String updateDDH = "Update DATHANG set NGAY=? NhaCC=? TRANGTHAI=? where MASODDH = ?";
+         String updateDDH = "Update DATHANG set NGAY=?, NhACC=?, TRANGTHAI=? where MASODDH = ?";
            
          String updateSLT = "{call updateSLT}";
          try (
@@ -251,8 +251,6 @@ public class OrderDAO {
             pstm.setString(1, mapn);
             pstm.setString(2, theorder.getMaDon());
             pstm.setString(3, ngay);
-            pstm.executeQuery();
-            
             pstm.executeUpdate();
             update.executeUpdate();
             updateTTDDH.executeUpdate();
@@ -294,7 +292,23 @@ public class OrderDAO {
           
         }
      }
-
+//    public void deletePhieuNhap(String madon,String maPN) throws Exception{
+//         String sql = "Delete CTPN where MASODDH=?";
+//         String sql1 = "Delete PHIEUNHAP where MASODDH=?";
+//         //String updateSLT = "{call updateSLT}";
+//         try (
+//                Connection con = DatabaseHelper.openConnection();  
+//                PreparedStatement deleteCT = con.prepareStatement(sql);
+//                 PreparedStatement deletePN = con.prepareStatement(sql1);
+//                 ) //PreparedStatement update = con.prepareStatement(updateSLT)) 
+//        {
+//            deleteCT.setString(1, madon);
+//            deletePN.setString(1, maPN);
+//            deleteCT.executeUpdate();
+//            deletePN.executeUpdate();
+//          
+//        }
+//     }
      
      //Tìm kiếm đơn hàng bằng mã đơn
     public Order findOrderByMa(String madon) throws Exception{

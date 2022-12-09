@@ -13,6 +13,8 @@ import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
@@ -31,12 +33,11 @@ public class ListTheOrders extends javax.swing.JPanel {
     public ListTheOrders(Warning WarningError,QsDelete qs, Success sc) {
         initComponents();
         initTable();
+        getListTheOrders();
         fillToTableDDH();
         this.WarningError = WarningError;
         this.qs = qs;
         this.sc = sc;
-//        y_n=false;
-//        cn=false;
         setOpaque(false);
         btnConfirm.setEnabled(false);
         btnDelete.setEnabled(false);
@@ -53,12 +54,6 @@ public class ListTheOrders extends javax.swing.JPanel {
     
     public void fillToTableDDH(){
         tblModelDDH.setRowCount(0);
-        try{
-            OrderDAO dao = new OrderDAO();
-            listTheOrders =dao.loadListDatHang();   
-        }catch(Exception e){
-            e.printStackTrace();
-        }
         for(DatHang order : listTheOrders){
             Object[] row = new Object[]{order.getMaDon(),order.getNhaCungCap(),order.getDate(),convertMoney(totalCost(order.getListSP())), convertTT(order)};
             tblModelDDH.addRow(row);
@@ -125,6 +120,72 @@ public class ListTheOrders extends javax.swing.JPanel {
         }
             
     }
+    public void sortConfirm(){
+        Comparator<DatHang> com = new Comparator<DatHang>(){
+            @Override
+            public int compare(DatHang o1, DatHang o2){
+                boolean b1 = o1.getTT();
+                boolean b2 = o2.getTT();
+               return Boolean.compare( b1, b2 );
+            }
+        };   
+        Collections.sort(listTheOrders, com);
+    }
+    public void sortByMa(){
+        
+         Comparator<DatHang> com = new Comparator<DatHang>(){
+            @Override
+            public int compare(DatHang o1, DatHang o2){
+                return o1.getMaDon().compareTo(o2.getMaDon());
+            }
+        };   
+        Collections.sort(listTheOrders, com);
+    }
+    public void sortByOld(){
+        
+         Comparator<DatHang> com = new Comparator<DatHang>(){
+            @Override
+            public int compare(DatHang o1, DatHang o2){
+                return o1.getDate().compareTo(o2.getDate());
+            }
+        };   
+        Collections.sort(listTheOrders, com);
+    }
+    public void sortByNew(){
+        
+         Comparator<DatHang> com = new Comparator<DatHang>(){
+            @Override
+            public int compare(DatHang o1, DatHang o2){
+                return o2.getDate().compareTo(o1.getDate());
+            }
+        };   
+        Collections.sort(listTheOrders, com);
+    }
+    public void sortEXEC(){
+        String temp =cbxSort.getSelectedItem().toString();
+        switch (temp){
+            case "Cũ đến mới":
+                sortByOld();
+                fillToTableDDH();
+                break;
+            case "Mã đơn":
+                sortByMa();
+                fillToTableDDH();
+                break;
+            case "Mới đến cũ":
+                sortByNew();
+                fillToTableDDH();
+                break;
+            case "Trạng thái":
+                sortConfirm();
+                fillToTableDDH();
+                break;
+           default:
+//                getListTheOrders();
+//                fillToTableDDH();
+                break;
+       }
+    }
         @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,6 +207,7 @@ public class ListTheOrders extends javax.swing.JPanel {
         btnConfirm = new com.dat.Swing.ButtonCustom();
         btnDelete = new com.dat.Swing.ButtonCustom();
         jLabel2 = new javax.swing.JLabel();
+        cbxSort = new javax.swing.JComboBox<>();
 
         tblDDH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -195,36 +257,34 @@ public class ListTheOrders extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtMaPN, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(286, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 49, Short.MAX_VALUE))
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dateNgayXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jSeparator1)
-                                            .addComponent(txtMaPN, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dateNgayXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(1, 1, 1)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -236,14 +296,14 @@ public class ListTheOrders extends javax.swing.JPanel {
                     .addComponent(txtMaPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(dateNgayXacNhan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6)
+                    .addComponent(dateNgayXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -273,21 +333,30 @@ public class ListTheOrders extends javax.swing.JPanel {
 
         jLabel2.setText("Sắp xếp:");
 
+        cbxSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã đơn", "Mới đến cũ","Cũ đến mới","Trạng thái"}));
+        cbxSort.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxSortItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel1)
-                        .addGap(71, 71, 71)
+                        .addGap(73, 73, 73)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(217, 217, 217))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addGap(21, 21, 21)
+                        .addComponent(cbxSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -302,15 +371,19 @@ public class ListTheOrders extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 8, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                        .addGap(0, 8, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(cbxSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 456, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -348,7 +421,7 @@ public class ListTheOrders extends javax.swing.JPanel {
                     OrderDAO dao = new OrderDAO();
                     dao.deleteDatHang(theorder.getMaDon());
                     getListTheOrders();
-                    //sortEXEC();
+                    sortEXEC();
                     fillToTableDDH();
                     sc.setContent("Xóa đơn hàng thành công.");
                     sc.setVisible(true);
@@ -373,11 +446,10 @@ public class ListTheOrders extends javax.swing.JPanel {
                 try{
                     OrderDAO dao = new OrderDAO();
                     //dao.updateTTDatHang(theorder);
-               
+                    dao.addPhieuNhap(txtMaPN.getText(),theorder,getDate());
                     getListTheOrders();
       
-                    dao.addPhieuNhap(txtMaPN.getText(),theorder,getDate());
-                    //sortEXEC();
+                    sortEXEC();
                     fillToTableDDH();
                     sc.setContent("Xác nhận đơn hàng thành công.");
                     sc.setVisible(true);
@@ -389,10 +461,15 @@ public class ListTheOrders extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnConfirmActionPerformed
 
+    private void cbxSortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxSortItemStateChanged
+        sortEXEC();
+    }//GEN-LAST:event_cbxSortItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.dat.Swing.ButtonCustom btnConfirm;
     private com.dat.Swing.ButtonCustom btnDelete;
+    private javax.swing.JComboBox<String> cbxSort;
     private com.toedter.calendar.JDateChooser dateNgayXacNhan;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

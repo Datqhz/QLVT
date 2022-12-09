@@ -118,7 +118,7 @@ public class TheOrders extends javax.swing.JPanel {
             
     }
     
-    public void addSPToDH(){
+    public void addSPToDDH(){
         int row = tblSP.getSelectedRow();
         Product prd  = listSP.get(row);
         CTSP ct = new CTSP();
@@ -131,7 +131,7 @@ public class TheOrders extends javax.swing.JPanel {
             //listSP.get(row).setSlTon(prd.getSlTon()-Integer.parseInt(chuanhoaMa(txtSoLuong.getText()),10));
         }
     }
-    public void fillToTableDH(){
+    public void fillToTableDDH(){
         tblModelSP_DH.setRowCount(0);
         for(CTSP ct : listCTSP){
             Object[] row = new Object[]{ct.getMaSP(),ct.getTenSP(),ct.getSoLuong(),convertMoney(ct.getGia()),convertMoney(ct.getGia() * ct.getSoLuong())};
@@ -209,7 +209,7 @@ public class TheOrders extends javax.swing.JPanel {
         lblIConMaso.setIcon(null);
         //lbl1.setText("");
         listCTSP.clear();
-        fillToTableDH();
+        fillToTableDDH();
         fillToTable();
         lblTotal.setText("");
     }
@@ -237,17 +237,20 @@ public class TheOrders extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
         lblThongBao = new javax.swing.JLabel();
-        lblSearch = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtSoLuong = new javax.swing.JTextField();
-        btnAdd = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         txtGiaBan = new javax.swing.JTextField();
         lblCheckGia = new javax.swing.JLabel();
         btnCreate = new com.dat.Swing.ButtonCustom();
         btnRemove = new com.dat.Swing.ButtonCustom();
         btnRenew = new com.dat.Swing.ButtonCustom();
+        btnAdd = new com.dat.Swing.ButtonCustom();
+        btnSearch = new com.dat.Swing.ButtonCustom();
+
+        setBackground(new java.awt.Color(243, 255, 255));
+        setOpaque(false);
 
         tblSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -266,6 +269,8 @@ public class TheOrders extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(tblSP);
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         tblSP_DH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -388,25 +393,9 @@ public class TheOrders extends javax.swing.JPanel {
 
         lblThongBao.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
 
-        lblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
-        lblSearch.setText("Search");
-        lblSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblSearchActionPerformed(evt);
-            }
-        });
-
         jLabel11.setText("Danh sách sản phẩm:");
 
         jLabel12.setText("Số lượng:");
-
-        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/add-new.png"))); // NOI18N
-        btnAdd.setText("Add");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Giá bán:");
 
@@ -444,6 +433,20 @@ public class TheOrders extends javax.swing.JPanel {
             }
         });
 
+        btnAdd.setText("Thêm");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -455,24 +458,23 @@ public class TheOrders extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(23, 23, 23)
-                                .addComponent(lblSearch))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(125, 125, 125)
-                                        .addComponent(btnAdd))
-                                    .addComponent(lblCheckGia, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblCheckGia, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(33, 33, 33)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -508,9 +510,9 @@ public class TheOrders extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtSearch))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -521,31 +523,16 @@ public class TheOrders extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(txtGiaBan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnAdd))
+                            .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCheckGia, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        checkAdd();
-        if(ttAdd ){
-                addSPToDH();
-                fillToTable();
-                fillToTableDH();
-                txtSoLuong.setText("");
-                txtGiaBan.setText("");
-                lblTotal.setText(convertMoney(updateTotalCost()));
-        }else {
-            WarningError.setContent("Vui lòng nhập đủ thông tin yêu cầu.");
-            WarningError.setVisible(true);
-        }
-    }//GEN-LAST:event_btnAddActionPerformed
 
     private void tblSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblSPMouseClicked
         int row = tblSP.getSelectedRow();
@@ -554,32 +541,6 @@ public class TheOrders extends javax.swing.JPanel {
             btnAdd.setEnabled(true);
         }
     }//GEN-LAST:event_tblSPMouseClicked
-
-    private void lblSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblSearchActionPerformed
-        if(chuanhoaMa(txtSearch.getText()).equals("")){
-            lblThongBao.setText("*Vui lòng nhập mã sản phẩm cần tìm!");
-            lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
-        }else{
-            
-            try{
-            ProductDAO dao = new ProductDAO();
-            temp = dao.findProductByMa(chuanhoaMa(txtSearch.getText()));
-            if(temp==null){
-                lblThongBao.setText("*Sản phẩm không tồn tại.");
-                lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
-            }else{
-               lblThongBao.setText("");
-               int row = dao.selectRowTable(chuanhoaMa(txtSearch.getText().toUpperCase()));
-               tblSP.setRowSelectionInterval(row,row);
-               txtSearch.setText("");
-               btnAdd.setEnabled(true);
-            }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-            
-        }
-    }//GEN-LAST:event_lblSearchActionPerformed
 
     private void txtMasoDDHFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMasoDDHFocusLost
         if(chuanhoaMa(txtMasoDDH.getText()).equals("")){
@@ -666,7 +627,7 @@ public class TheOrders extends javax.swing.JPanel {
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
         removeSPFromDH();
         fillToTable();
-        fillToTableDH();
+        fillToTableDDH();
         lblTotal.setText(convertMoney(updateTotalCost()));
         btnRemove.setEnabled(false);
     }//GEN-LAST:event_btnRemoveActionPerformed
@@ -679,12 +640,55 @@ public class TheOrders extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtGiaBanActionPerformed
 
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        checkAdd();
+        if(ttAdd){
+                addSPToDDH();
+                fillToTable();
+                fillToTableDDH();
+                txtSoLuong.setText("");
+                txtGiaBan.setText("");
+                lblTotal.setText(convertMoney(updateTotalCost()));
+            }
+        else {
+            WarningError.setContent("Vui lòng nhập đủ thông tin yêu cầu.");
+            WarningError.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        if(chuanhoaMa(txtSearch.getText()).equals("")){
+            lblThongBao.setText("*Vui lòng nhập mã sản phẩm cần tìm!");
+            lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
+        }else{
+            
+            try{
+            ProductDAO dao = new ProductDAO();
+            temp = dao.findProductByMa(chuanhoaMa(txtSearch.getText()));
+            if(temp==null){
+                lblThongBao.setText("*Sản phẩm không tồn tại.");
+                lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
+            }else{
+               lblThongBao.setText("");
+               int row = dao.selectRowTable(chuanhoaMa(txtSearch.getText().toUpperCase()));
+               tblSP.setRowSelectionInterval(row,row);
+               txtSearch.setText("");
+               btnAdd.setEnabled(true);
+            }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
+    private com.dat.Swing.ButtonCustom btnAdd;
     private com.dat.Swing.ButtonCustom btnCreate;
     private com.dat.Swing.ButtonCustom btnRemove;
     private com.dat.Swing.ButtonCustom btnRenew;
+    private com.dat.Swing.ButtonCustom btnSearch;
     private com.toedter.calendar.JDateChooser dateNgayLap;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
@@ -702,7 +706,6 @@ public class TheOrders extends javax.swing.JPanel {
     private javax.swing.JLabel lblErrorName;
     private javax.swing.JLabel lblIConMaso;
     private javax.swing.JLabel lblMaso;
-    private javax.swing.JButton lblSearch;
     private javax.swing.JLabel lblThongBao;
     private javax.swing.JLabel lblTotal;
     private javax.swing.JTable tblSP;
