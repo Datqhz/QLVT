@@ -17,6 +17,8 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -116,6 +118,16 @@ public class ListTheOrders extends javax.swing.JPanel {
 //        }
 //        return tmp;
 //    }
+    
+    public boolean checkNgayXN(String dt)throws Exception{
+        Date date_tmp=new SimpleDateFormat("yyyy-MM-dd").parse(dt);
+        if (date_tmp.compareTo(dateNgayXacNhan.getDate())>=0||dateNgayXacNhan.getDate().compareTo(new Date())>0){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
     public String getDateXN(){
     
         SimpleDateFormat g = new SimpleDateFormat("yyyy-MM-dd");
@@ -237,6 +249,8 @@ public class ListTheOrders extends javax.swing.JPanel {
 
         jLabel1.setText("Danh sách Đơn đặt hàng:");
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         tblSP_DDH.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -280,10 +294,10 @@ public class ListTheOrders extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtMaPN, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(286, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                    .addComponent(txtMaPN))))
+                        .addContainerGap(310, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -293,7 +307,7 @@ public class ListTheOrders extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(1, 1, 1)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 51, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,12 +316,12 @@ public class ListTheOrders extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtMaPN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(dateNgayXacNhan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dateNgayXacNhan, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -381,7 +395,7 @@ public class ListTheOrders extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 8, Short.MAX_VALUE)
+                        .addGap(0, 14, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(17, 17, 17)
@@ -451,22 +465,28 @@ public class ListTheOrders extends javax.swing.JPanel {
                 if(row>=0){
                 DatHang theorder = listTheOrders.get(row);
                 theorder.setTT(true);
-//                if(theorder.getDate().compareTo(dateNgayXacNhan.getDate())){
-//                    
-//                }
+                    try {
+                        if(checkNgayXN(theorder.getDate())){
+                            try{
+                                OrderDAO dao = new OrderDAO();
+                                dao.addPhieuNhap(txtMaPN.getText(),theorder,getDateXN());
+                                getListTheOrders();
+                                
+                                sortEXEC();
+                                fillToTableDDH();
+                                sc.setContent("Xác nhận đơn hàng thành công.");
+                                sc.setVisible(true);
+                            }catch(Exception e){
+                                e.printStackTrace();
+                            }
+                        }else{
+                            WarningError.setContent("Ngày bạn chọn không hợp lệ!");
+                            WarningError.setVisible(true);
+                        }} catch (Exception ex) {
+                        Logger.getLogger(ListTheOrders.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                   
-                try{
-                    OrderDAO dao = new OrderDAO();
-                    dao.addPhieuNhap(txtMaPN.getText(),theorder,getDateXN());
-                    getListTheOrders();
-      
-                    sortEXEC();
-                    fillToTableDDH();
-                    sc.setContent("Xác nhận đơn hàng thành công.");
-                    sc.setVisible(true);
-                }catch(Exception e){
-                    e.printStackTrace();
-                }     
+                    
                 }
             }
         
