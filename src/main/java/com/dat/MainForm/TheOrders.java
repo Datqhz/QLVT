@@ -174,12 +174,6 @@ public class TheOrders extends javax.swing.JPanel {
         int row = tblSP_DH.getSelectedRow();
         CTSP ct = listCTSP.get(row);
         
-//        for(Product prd : listSP){
-//            if(prd.getMaSp().equals(ct.getMaSP())){
-//                prd.setSlTon(prd.getSlTon()+ct.getSoLuong());
-//                break;
-//            }
-//        }
         listCTSP.remove(row);
     }
     
@@ -189,16 +183,6 @@ public class TheOrders extends javax.swing.JPanel {
             total+=ct.getSoLuong()* ct.getGia();
         }
         return total;
-    }
-    public void resetCTSP(){
-        for(CTSP ct :listCTSP){
-            for(Product prd : listSP){
-                if(prd.getMaSp().equals(ct.getMaSP())){
-                    prd.setSlTon(prd.getSlTon()+ct.getSoLuong());
-                    break;
-                }
-            }
-        }
     }
     public void resetDDH(){
         txtMasoDDH.setText("");

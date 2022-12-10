@@ -56,9 +56,9 @@ private void fillToTable(){
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSP = new javax.swing.JTable();
         lblMaVT = new javax.swing.JLabel();
-        btnsearch = new javax.swing.JButton();
         txtsearch = new javax.swing.JTextField();
         lblThongBao = new javax.swing.JLabel();
+        btnSearch = new com.dat.Swing.ButtonCustom();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setOpaque(false);
@@ -78,10 +78,10 @@ private void fillToTable(){
 
         lblMaVT.setText("Mã sản phẩm:");
 
-        btnsearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
-        btnsearch.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnsearchActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
 
@@ -98,8 +98,8 @@ private void fillToTable(){
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(52, 52, 52)
-                                .addComponent(btnsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(46, 46, 46)
+                                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -110,12 +110,11 @@ private void fillToTable(){
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblMaVT)
-                        .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMaVT)
+                    .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
                 .addComponent(lblThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,35 +122,35 @@ private void fillToTable(){
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsearchActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         if(chuanhoaMa(txtsearch.getText()).equals("")){
             lblThongBao.setText("*Vui lòng nhập mã sản phẩm cần tìm!");
             lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
         }else{
-            
+
             try{
-            ProductDAO dao = new ProductDAO();
-            temp = dao.findProductByMa(chuanhoaMa(txtsearch.getText()));
-            if(temp==null){
-                lblThongBao.setText("*Sản phẩm không tồn tại.");
-                lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
-            }else{
-                lblThongBao.setText("");
-               int row = dao.selectRowTable(chuanhoaMa(txtsearch.getText().toUpperCase()));
-               tblSP.setRowSelectionInterval(row,row);
-               txtsearch.setText("");
-               btnsearch.setEnabled(true);
-            }
+                ProductDAO dao = new ProductDAO();
+                temp = dao.findProductByMa(chuanhoaMa(txtsearch.getText()));
+                if(temp==null){
+                    lblThongBao.setText("*Sản phẩm không tồn tại.");
+                    lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
+                }else{
+                    lblThongBao.setText("");
+                    int row = dao.selectRowTable(chuanhoaMa(txtsearch.getText().toUpperCase()));
+                    tblSP.setRowSelectionInterval(row,row);
+                    txtsearch.setText("");
+                    btnSearch.setEnabled(true);
+                }
             }catch(Exception e){
                 e.printStackTrace();
             }
-            
+
         }
-    }//GEN-LAST:event_btnsearchActionPerformed
+    }//GEN-LAST:event_btnSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnsearch;
+    private com.dat.Swing.ButtonCustom btnSearch;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblMaVT;
     private javax.swing.JLabel lblThongBao;

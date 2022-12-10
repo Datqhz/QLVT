@@ -8,13 +8,13 @@ import com.dat.Dialog.Warning;
 import com.dat.Order.CTSP;
 import com.dat.Order.DatHang;
 import com.dat.Order.Order;
-//import com.dat.Order.PhieuNhap;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
@@ -107,9 +107,19 @@ public class ListTheOrders extends javax.swing.JPanel {
             return "Chưa thanh toán";
         }
     }
-    public String getDate(){
+//    public Date ConvertDate(String str){
+//        Date tmp;
+//        try{
+//            tmp = new SimpleDateFormat("yyyy-MM-dd").parse(str);
+//        }catch(Exception e){
+//                    e.printStackTrace();          
+//        }
+//        return tmp;
+//    }
+    public String getDateXN(){
+    
         SimpleDateFormat g = new SimpleDateFormat("yyyy-MM-dd");
-        if(dateNgayXacNhan.getDate()!=null){
+        if(dateNgayXacNhan.getDate()!=null  ){
         String date = g.format(dateNgayXacNhan.getDate());
         return date;}
         else {
@@ -181,8 +191,6 @@ public class ListTheOrders extends javax.swing.JPanel {
                 fillToTableDDH();
                 break;
            default:
-//                getListTheOrders();
-//                fillToTableDDH();
                 break;
        }
     }
@@ -443,10 +451,13 @@ public class ListTheOrders extends javax.swing.JPanel {
                 if(row>=0){
                 DatHang theorder = listTheOrders.get(row);
                 theorder.setTT(true);
+//                if(theorder.getDate().compareTo(dateNgayXacNhan.getDate())){
+//                    
+//                }
+                  
                 try{
                     OrderDAO dao = new OrderDAO();
-                    //dao.updateTTDatHang(theorder);
-                    dao.addPhieuNhap(txtMaPN.getText(),theorder,getDate());
+                    dao.addPhieuNhap(txtMaPN.getText(),theorder,getDateXN());
                     getListTheOrders();
       
                     sortEXEC();
