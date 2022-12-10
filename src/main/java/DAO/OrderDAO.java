@@ -5,7 +5,6 @@ import com.dat.Order.CTSP;
 import com.dat.Order.DatHang;
 import com.dat.Order.DonHang;
 import com.dat.Order.Order;
-import com.dat.Order.PhieuNhap;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -235,7 +234,7 @@ public class OrderDAO {
      
      public void addPhieuNhap(String mapn,DatHang theorder, String ngay)throws Exception{
          String sql = "{call tao_phieu_nhap(?,?,?)}";
-         String updateDDH = "Update DATHANG set NGAY=?, NhACC=?, TRANGTHAI=? where MASODDH = ?";
+         String updateDDH = "Update DATHANG set NGAY=?, NHACC=?, TRANGTHAI=? where MASODDH = ?";
            
          String updateSLT = "{call updateSLT}";
          try (
