@@ -10,6 +10,7 @@ import com.dat.Order.CTSP;
 import com.dat.Order.DatHang;
 import com.dat.Order.Order;
 import com.dat.Product.Product;
+import com.dat.User.User;
 import java.awt.Color;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -34,8 +35,9 @@ public class TheOrders extends javax.swing.JPanel {
     Success success;
     boolean addStatus=false;
     QuestionOrder Qs;
+    User user;
   
-    public TheOrders(Warning WarningError,QuestionOrder Qs, Success success) {
+    public TheOrders(Warning WarningError,QuestionOrder Qs, Success success,User user) {
         initComponents();
         initTable();
         getListSP();
@@ -47,6 +49,7 @@ public class TheOrders extends javax.swing.JPanel {
         this.WarningError = WarningError;
         this.Qs = Qs;
         this.success = success;
+        this.user = user;
     }
     public void initTable(){
         String[] header = new String[]{"Mã sản phẩm", "Tên sản phẩm", "Đơn vị tính"};
@@ -145,6 +148,7 @@ public class TheOrders extends javax.swing.JPanel {
        theorder.setNhaCungCap(chuanhoaTen(txtNhaCC.getText()));
        theorder.setDate(getDate());
        theorder.setListSP(listCTSP);
+       theorder.setMaNV(user.getMaNV());
        return theorder;
     }
     

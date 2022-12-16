@@ -18,7 +18,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -34,8 +33,9 @@ public class TaoDonHangForm extends javax.swing.JPanel {
     Success success;
     boolean addStatus=false;
     QuestionOrder Qs;
+    private String maNV;
     
-    public TaoDonHangForm( Warning WarningError,QuestionOrder Qs, Success success) {
+    public TaoDonHangForm( Warning WarningError,QuestionOrder Qs, Success success, String maNV) {
         initComponents();
         initTable();
         getListSP();
@@ -47,6 +47,7 @@ public class TaoDonHangForm extends javax.swing.JPanel {
         this.WarningError = WarningError;
         this.Qs = Qs;
         this.success = success;
+        this.maNV = maNV;
     }
     
     public void initTable(){
@@ -143,6 +144,7 @@ public class TaoDonHangForm extends javax.swing.JPanel {
     }
     public DonHang getInfoOrder(){
        DonHang order = new DonHang();
+       order.setMaNV(this.maNV);
        order.setMaDon(chuanhoaMa(txtMaDon.getText()));
        order.setTenKhachHang(chuanhoaTen(txtTenKhachHang.getText()));
        order.setDate(getDate());
@@ -181,12 +183,6 @@ public class TaoDonHangForm extends javax.swing.JPanel {
         }
     }
     
-//    public void resetAllSelect(){
-//        txtSearch.setText("");
-//        txtSoLuong.setText("");
-//        btnAdd.setEnabled(false);
-//        tblSP.setRowSelectionInterval(0,0);
-//    }
     
     public void removeSPFromDH(){
         int row = tblSP_DH.getSelectedRow();

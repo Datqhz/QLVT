@@ -9,6 +9,7 @@ public class Order {
     protected String date;
     protected List<CTSP> listSP;
     protected boolean tt;
+    protected String maNV;
 
     public String getMaDon() {
         return maDon;
@@ -46,5 +47,15 @@ public class Order {
     public boolean getTT(){
         return tt;
     }
+
+
+    public String getMaNV() {
+        return maNV;
+    }
+
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
+    }
+    
     
 }

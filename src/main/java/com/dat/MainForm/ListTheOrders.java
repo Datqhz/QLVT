@@ -8,6 +8,7 @@ import com.dat.Dialog.Warning;
 import com.dat.Order.CTSP;
 import com.dat.Order.DatHang;
 import com.dat.Order.Order;
+import com.dat.User.User;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -30,9 +31,10 @@ public class ListTheOrders extends javax.swing.JPanel {
     Warning WarningError;
     QsDelete qs;
     Success sc;
+    User user;
 
     
-    public ListTheOrders(Warning WarningError,QsDelete qs, Success sc) {
+    public ListTheOrders(Warning WarningError,QsDelete qs, Success sc, User user) {
         initComponents();
         initTable();
         getListTheOrders();
@@ -43,6 +45,7 @@ public class ListTheOrders extends javax.swing.JPanel {
         setOpaque(false);
         btnConfirm.setEnabled(false);
         btnDelete.setEnabled(false);
+        this.user = user;
        
     }
     public void initTable(){
@@ -469,7 +472,7 @@ public class ListTheOrders extends javax.swing.JPanel {
                         if(checkNgayXN(theorder.getDate())){
                             try{
                                 OrderDAO dao = new OrderDAO();
-                                dao.addPhieuNhap(txtMaPN.getText(),theorder,getDateXN());
+                                dao.addPhieuNhap(txtMaPN.getText(),theorder,getDateXN(),user.getMaNV());
                                 getListTheOrders();
                                 
                                 sortEXEC();

@@ -1,5 +1,6 @@
 
 package com.dat.qlvt;
+import DAO.UserDAO;
 import com.dat.Dialog.LoginFom;
 import com.dat.Dialog.QsDelete;
 import com.dat.Dialog.Question;
@@ -11,6 +12,8 @@ import com.dat.component.Header;
 import com.dat.component.Menu;
 import net.miginfocom.swing.MigLayout;
 import com.dat.MainForm.MainForm;
+import com.dat.User.User;
+import java.util.List;
 
 
 public class MainFrame extends javax.swing.JFrame {
@@ -18,6 +21,7 @@ public class MainFrame extends javax.swing.JFrame {
     private Header header;
     private MigLayout layout;
     private MainForm main;
+    private List<User> users;
     //Dialog add
     public MainFrame() {
         initComponents();
@@ -31,15 +35,25 @@ public class MainFrame extends javax.swing.JFrame {
         background.setLayout(layout);
         header = new Header();
         main = new MainForm();
-        menu = new Menu(main, new Warning(this,true),  new Question(this,true) , new Success(this,true),new QuestionUpdate(this,true),new QuestionOrder(this,true),new QsDelete(this,true));
+        loadUser();
+        LoginFom login = new LoginFom(this,true,new Warning(this,true),users);
+        login.setVisible(true);
+        menu = new Menu(main, new Warning(this,true),  new Question(this,true) , new Success(this,true),new QuestionUpdate(this,true),new QuestionOrder(this,true),new QsDelete(this,true),login.getPresent());
         background.add(menu,"h 600!, w 200!, spany 2");
         background.add(header, "h 35!, wrap");
         background.add(main, "w 100%, h 100%");
-        LoginFom login = new LoginFom(this,true,new Warning(this,true));
-        login.setVisible(true);
+        
     }
    
-
+    
+    public void loadUser(){
+        try{
+            UserDAO dao = new UserDAO();
+            users = dao.loadUser();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

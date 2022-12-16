@@ -1,7 +1,9 @@
 
 package com.dat.Dialog;
 
+import com.dat.User.User;
 import java.awt.GridLayout;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,6 +14,8 @@ public class LoginFom extends javax.swing.JDialog {
     private String password;
     private boolean exit=false;
     private boolean statusLog =false;
+    private List<User> users;
+    private User present;
     public String getUserName() {
         return userName;
     }
@@ -35,15 +39,36 @@ public class LoginFom extends javax.swing.JDialog {
     public void setExit(boolean exit) {
         this.exit = exit;
     }
+
+    public User getPresent() {
+        return present;
+    }
+
+    public void setPresent(User present) {
+        this.present = present;
+    }
    
     Warning wn;
     
-    public LoginFom(java.awt.Frame parent, boolean modal,Warning wn) {
+    public LoginFom(java.awt.Frame parent, boolean modal,Warning wn, List<User> users) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         main.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(255, 255, 255), new java.awt.Color(204, 204, 204)));
         this.wn=wn;
+        this.users = users;
+    }
+    
+    public boolean checkLogin(){
+        boolean check = false;
+        for(User i:users){
+            if(i.getAccount().equals(txtUserName.getText().replaceAll(" ",""))&&i.getPassword().equals(new String(txtPassword.getPassword()))){
+                check = true;
+                present = i;
+                break;
+            }
+        }
+        return check;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -184,13 +209,11 @@ public class LoginFom extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogActionPerformed
-
-        userName=txtUserName.getText().replaceAll(" ","");
-        password = new String(txtPassword.getPassword());
-        if(userName.equals("")||password.equals("")){
+           ;
+        if(txtUserName.equals("")||txtPassword.equals("")){
             wn.setContent("Tài khoản và mật khẩu không được để trống!");
             wn.setVisible(true);
-        }else if(!userName.equals("sa")||!password.equals("221544")){
+        }else if(!checkLogin()){
             wn.setContent("Tài khoản hoặc mật khẩu không đúng!");
             wn.setVisible(true);
         }else{
@@ -202,8 +225,15 @@ public class LoginFom extends javax.swing.JDialog {
             setSize(400,240);
             Timer t = new Timer();
             TimerTask task = new TimerTask() {
-                public void run(){
+                public void run(){  
                     setVisible(false);
+                    main.removeAll();
+                    main.setSize(280,350);
+                    main.add(pnlLogin);
+                    main.setLayout(new GridLayout(1,1));
+                    setSize(280,350);
+                    txtPassword.setText("");
+                    txtUserName.setText("");
                 }
             };
     

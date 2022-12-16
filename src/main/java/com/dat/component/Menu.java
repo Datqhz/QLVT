@@ -14,9 +14,9 @@ import com.dat.MainForm.TaoDonHangForm;
 import com.dat.MainForm.DSDonHangForm;
 import com.dat.MainForm.MainForm;
 import com.dat.MainForm.TheOrders;
-import com.dat.MainForm.TheOrders;
 import com.dat.MainForm.UpdateForm;
 import com.dat.MainForm.KhoForm;
+import com.dat.User.User;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -32,7 +32,10 @@ public class Menu extends javax.swing.JPanel {
     MainForm main;
     QuestionOrder QsO;
     QsDelete dl;
-    public Menu(MainForm main, Warning WarningError, Question Qs,  Success sc, QuestionUpdate QsU,QuestionOrder QsO,QsDelete dl) {
+    
+    private User user;
+    
+    public Menu(MainForm main, Warning WarningError, Question Qs,  Success sc, QuestionUpdate QsU,QuestionOrder QsO,QsDelete dl, User user) {
         initComponents();
         this.main = main;
         setOpaque(false);
@@ -44,6 +47,7 @@ public class Menu extends javax.swing.JPanel {
         this.QsU=QsU;
         this.QsO=QsO;
         this.dl=dl;
+        this.user = user;
     }
     
     @Override
@@ -274,7 +278,7 @@ public class Menu extends javax.swing.JPanel {
         lblTheOrders.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblCreate.setOpaque(true);
-        main.showForm(new TaoDonHangForm(WarningError,QsO , sc));
+        main.showForm(new TaoDonHangForm(WarningError,QsO , sc,user.getMaNV()));
     }//GEN-LAST:event_lblCreateMouseClicked
 
     private void lblListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListMouseClicked
@@ -307,7 +311,7 @@ public class Menu extends javax.swing.JPanel {
         lblWarehouse.setOpaque(false);
         lblListTheOrders.setOpaque(false);
         lblTheOrders.setOpaque(true);
-        main.showForm(new TheOrders(WarningError,QsO , sc));
+        main.showForm(new TheOrders(WarningError,QsO , sc,user));
     }//GEN-LAST:event_lblTheOrdersMousePressed
 
     private void lblListTheOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListTheOrdersMouseClicked
@@ -318,7 +322,7 @@ public class Menu extends javax.swing.JPanel {
         lblWarehouse.setOpaque(false);
         lblTheOrders.setOpaque(false);
         lblListTheOrders.setOpaque(true);
-        main.showForm(new ListTheOrders(WarningError,dl , sc));
+        main.showForm(new ListTheOrders(WarningError,dl , sc,user));
     }//GEN-LAST:event_lblListTheOrdersMouseClicked
 
 
