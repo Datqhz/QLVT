@@ -64,10 +64,10 @@ public class TaoDonHangForm extends javax.swing.JPanel {
     }
     
     
-    private void getListSP(){
+    public void getListSP(){
         try{
             ProductDAO dao = new ProductDAO();
-            listSP=dao.loadListProduct();   
+            this.listSP=dao.loadListProduct();   
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class TaoDonHangForm extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    private void fillToTable(){
+    public void fillToTable(){
         tblModelSP.setRowCount(0);
         
         for(Product prd : listSP){

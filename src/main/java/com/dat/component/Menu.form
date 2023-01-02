@@ -100,7 +100,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="lblAdd" max="32767" attributes="0"/>
-              <Component id="lblRemove" alignment="1" max="32767" attributes="0"/>
+              <Component id="lblUpdate" alignment="1" max="32767" attributes="0"/>
               <Component id="lblList" alignment="1" pref="200" max="32767" attributes="0"/>
               <Component id="lblCreate" alignment="1" max="32767" attributes="0"/>
               <Component id="lblTheOrders" alignment="1" max="32767" attributes="0"/>
@@ -114,7 +114,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblAdd" min="-2" pref="35" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="lblRemove" min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="lblUpdate" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblCreate" min="-2" pref="36" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -152,7 +152,7 @@
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddMouseEntered"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblRemove">
+        <Component class="javax.swing.JLabel" name="lblUpdate">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ab" green="d" red="b" type="rgb"/>
@@ -170,7 +170,7 @@
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblRemoveMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblUpdateMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCreate">

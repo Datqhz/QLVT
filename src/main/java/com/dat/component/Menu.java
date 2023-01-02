@@ -22,6 +22,8 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 
 public class Menu extends javax.swing.JPanel {
@@ -32,8 +34,15 @@ public class Menu extends javax.swing.JPanel {
     MainForm main;
     QuestionOrder QsO;
     QsDelete dl;
-    
+    private Add addForm ;
+    private UpdateForm updateForm;
+    private TaoDonHangForm tdh;
+    private DSDonHangForm dsdh;
+    private KhoForm kho;
+    private TheOrders dathang;
+    private ListTheOrders dsdathang;
     private User user;
+    private int functionIsSelected = 0;
     
     public Menu(MainForm main, Warning WarningError, Question Qs,  Success sc, QuestionUpdate QsU,QuestionOrder QsO,QsDelete dl, User user) {
         initComponents();
@@ -48,6 +57,7 @@ public class Menu extends javax.swing.JPanel {
         this.QsO=QsO;
         this.dl=dl;
         this.user = user;
+        
     }
     
     @Override
@@ -58,9 +68,133 @@ public class Menu extends javax.swing.JPanel {
         g2.setPaint(gra);
         g2.fillRect(0, 0, getWidth(), getHeight());
         super.paintComponent(g); 
+        
     }
-    
-    
+//    public void addFormToComponent(){
+//        addForm.addComponentListener(new ComponentAdapter() {
+//            public void componentAdded(ComponentEvent e) {
+//                addForm.fillToTable();
+//                addForm.revalidate();
+//                addForm.repaint();
+//            }
+//        });
+//        updateForm.addComponentListener(new ComponentAdapter() {
+//            public void componentAdded(ComponentEvent e) {
+//                updateForm.fillToTable();
+//                updateForm.revalidate();
+//                updateForm.repaint();
+//            }
+//        });
+//        tdh.addComponentListener(new ComponentAdapter() {
+//            public void componentAdded(ComponentEvent e) {
+//                tdh.getListSP();
+//                tdh.fillToTable();
+//                tdh.revalidate();
+//                tdh.repaint();
+//            }
+//        });
+//        dsdh.addComponentListener(new ComponentAdapter() {
+//            public void componentAdded(ComponentEvent e) {
+//                dsdh.getData();
+//                dsdh.fillToTableDH();
+//                dsdh.revalidate();
+//                dsdh.repaint();
+//            }
+//        });
+//        dsdathang.addComponentListener(new ComponentAdapter() {
+//            public void componentAdded(ComponentEvent e) {
+//                dsdathang.getListTheOrders();
+//                dsdathang.fillToTableDDH();
+//                dsdathang.revalidate();
+//                dsdathang.repaint();
+//            }
+//        });
+//        kho.addComponentListener(new ComponentAdapter() {
+//            public void componentAdded(ComponentEvent e) {
+//                
+//                kho.fillToTable();
+//                kho.revalidate();
+//                kho.repaint();
+//            }
+//        });
+//        dathang.addComponentListener(new ComponentAdapter() {
+//            public void componentAdded(ComponentEvent e) {
+//                dathang.getListSP();
+//                dathang.fillToTable();
+//                dathang.revalidate();
+//                dathang.repaint();
+//            }
+//        });
+//        
+//    }
+    public void disableSelected(){
+        switch (functionIsSelected){
+            case 1:
+                lblAdd.setOpaque(false);
+                addForm = null;
+                break;
+            case 2:
+                lblUpdate.setOpaque(false);
+                updateForm = null;
+                break;
+            case 3:
+                lblCreate.setOpaque(false);
+                tdh = null;
+                break;
+            case 4:
+                lblList.setOpaque(false);
+                dsdh =null;
+                break;
+            case 5:
+                lblWarehouse.setOpaque(false);
+                kho =null;
+                break;
+            case 6:
+                lblTheOrders.setOpaque(false);
+                dathang=null;
+                break;
+            case 7:
+                lblListTheOrders.setOpaque(false);
+                dsdathang=null;
+                break;
+            default: 
+                break;
+        }
+    }
+    public void changeForm(){
+        switch (functionIsSelected){
+            case 1:
+                lblAdd.setOpaque(true);
+                this.addForm =  new Add( WarningError,Qs , sc);
+                break;
+            case 2:
+                lblUpdate.setOpaque(true);
+                this.updateForm  = new UpdateForm(Qs,sc,QsU);
+                break;
+            case 3:
+                lblCreate.setOpaque(true);
+                this.tdh = new TaoDonHangForm(WarningError,QsO , sc,user.getMaNV());
+                break;
+            case 4:
+                lblList.setOpaque(true);
+                this.dsdh = new DSDonHangForm(dl,sc);
+                break;
+            case 5:
+                lblWarehouse.setOpaque(true);
+                this.kho = new KhoForm();
+                break;
+            case 6:
+                lblTheOrders.setOpaque(true);
+                this.dathang = new TheOrders(WarningError,QsO , sc,user);
+                break;
+            case 7:
+                lblListTheOrders.setOpaque(true);
+                this.dsdathang = new ListTheOrders(WarningError,dl , sc,user);
+                break;
+            default:
+                break;
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -70,7 +204,7 @@ public class Menu extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         pnMenu = new javax.swing.JPanel();
         lblAdd = new javax.swing.JLabel();
-        lblRemove = new javax.swing.JLabel();
+        lblUpdate = new javax.swing.JLabel();
         lblCreate = new javax.swing.JLabel();
         lblList = new javax.swing.JLabel();
         lblWarehouse = new javax.swing.JLabel();
@@ -119,15 +253,15 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
-        lblRemove.setBackground(new java.awt.Color(11, 13, 171));
-        lblRemove.setForeground(new java.awt.Color(255, 255, 255));
-        lblRemove.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-update-24 (1).png"))); // NOI18N
-        lblRemove.setText("Cập nhật sản phẩm");
-        lblRemove.setToolTipText("");
-        lblRemove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblRemove.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblUpdate.setBackground(new java.awt.Color(11, 13, 171));
+        lblUpdate.setForeground(new java.awt.Color(255, 255, 255));
+        lblUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-update-24 (1).png"))); // NOI18N
+        lblUpdate.setText("Cập nhật sản phẩm");
+        lblUpdate.setToolTipText("");
+        lblUpdate.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblRemoveMouseClicked(evt);
+                lblUpdateMouseClicked(evt);
             }
         });
 
@@ -190,7 +324,7 @@ public class Menu extends javax.swing.JPanel {
         pnMenuLayout.setHorizontalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblRemove, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
             .addComponent(lblCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblTheOrders, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -203,7 +337,7 @@ public class Menu extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,83 +380,61 @@ public class Menu extends javax.swing.JPanel {
     }//GEN-LAST:event_lblAddMouseEntered
 
     private void lblAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddMouseClicked
-        lblRemove.setOpaque(false);
-        lblCreate.setOpaque(false);
-        lblList.setOpaque(false);
-        lblWarehouse.setOpaque(false);
-        lblTheOrders.setOpaque(false);
-        lblListTheOrders.setOpaque(false);
-        lblAdd.setOpaque(true);
+        disableSelected();
+        functionIsSelected = 1;
+        changeForm();
         
-        main.showForm(new Add( WarningError,Qs , sc));
+        main.showForm(addForm);
         
         
     }//GEN-LAST:event_lblAddMouseClicked
 
-    private void lblRemoveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblRemoveMouseClicked
-        lblAdd.setOpaque(false);
-        lblCreate.setOpaque(false);
-        lblList.setOpaque(false);
-        lblWarehouse.setOpaque(false);
-        lblTheOrders.setOpaque(false);
-        lblListTheOrders.setOpaque(false);
-        lblRemove.setOpaque(true);
-        main.showForm(new UpdateForm(Qs,sc,QsU));
-    }//GEN-LAST:event_lblRemoveMouseClicked
+    private void lblUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblUpdateMouseClicked
+        disableSelected();
+        functionIsSelected = 2;
+        changeForm();
+        
+        main.showForm(updateForm);
+    }//GEN-LAST:event_lblUpdateMouseClicked
 
     private void lblCreateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblCreateMouseClicked
-        lblRemove.setOpaque(false);
-        lblAdd.setOpaque(false);
-        lblList.setOpaque(false);
-        lblWarehouse.setOpaque(false);
-        lblTheOrders.setOpaque(false);
-        lblListTheOrders.setOpaque(false);
-        lblCreate.setOpaque(true);
-        main.showForm(new TaoDonHangForm(WarningError,QsO , sc,user.getMaNV()));
+        disableSelected();
+        functionIsSelected = 3;
+        changeForm();
+        
+        main.showForm(tdh);
     }//GEN-LAST:event_lblCreateMouseClicked
 
     private void lblListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListMouseClicked
-        lblRemove.setOpaque(false);
-        lblCreate.setOpaque(false);
-        lblAdd.setOpaque(false);
-        lblWarehouse.setOpaque(false);
-        lblTheOrders.setOpaque(false);
-        lblListTheOrders.setOpaque(false);
-        lblList.setOpaque(true);
-        main.showForm(new DSDonHangForm(dl,sc));
+        disableSelected();
+        functionIsSelected = 4;
+        changeForm();
+        
+        main.showForm(dsdh);
     }//GEN-LAST:event_lblListMouseClicked
 
     private void lblWarehouseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblWarehouseMousePressed
-        lblTheOrders.setOpaque(false);
-        lblRemove.setOpaque(false);
-        lblCreate.setOpaque(false);
-        lblList.setOpaque(false);
-        lblAdd.setOpaque(false);
-        lblListTheOrders.setOpaque(false);
-        lblWarehouse.setOpaque(true);
-        main.showForm(new KhoForm());
+        disableSelected();
+        functionIsSelected = 5;
+        changeForm();
+        
+        main.showForm(kho);
     }//GEN-LAST:event_lblWarehouseMousePressed
 
     private void lblTheOrdersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblTheOrdersMousePressed
-         lblRemove.setOpaque(false);
-        lblCreate.setOpaque(false);
-        lblList.setOpaque(false);
-        lblAdd.setOpaque(false);
-        lblWarehouse.setOpaque(false);
-        lblListTheOrders.setOpaque(false);
-        lblTheOrders.setOpaque(true);
-        main.showForm(new TheOrders(WarningError,QsO , sc,user));
+        disableSelected();
+        functionIsSelected = 6;
+        changeForm();
+        
+        main.showForm(dathang);
     }//GEN-LAST:event_lblTheOrdersMousePressed
 
     private void lblListTheOrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblListTheOrdersMouseClicked
-        lblRemove.setOpaque(false);
-        lblCreate.setOpaque(false);
-        lblList.setOpaque(false);
-        lblAdd.setOpaque(false);
-        lblWarehouse.setOpaque(false);
-        lblTheOrders.setOpaque(false);
-        lblListTheOrders.setOpaque(true);
-        main.showForm(new ListTheOrders(WarningError,dl , sc,user));
+        disableSelected();
+        functionIsSelected = 7;
+        changeForm();
+        
+        main.showForm(dsdathang);
     }//GEN-LAST:event_lblListTheOrdersMouseClicked
 
 
@@ -334,8 +446,8 @@ public class Menu extends javax.swing.JPanel {
     private javax.swing.JLabel lblCreate;
     private javax.swing.JLabel lblList;
     private javax.swing.JLabel lblListTheOrders;
-    private javax.swing.JLabel lblRemove;
     private javax.swing.JLabel lblTheOrders;
+    private javax.swing.JLabel lblUpdate;
     private javax.swing.JLabel lblWarehouse;
     private javax.swing.JPanel pnHome;
     private javax.swing.JPanel pnMenu;
