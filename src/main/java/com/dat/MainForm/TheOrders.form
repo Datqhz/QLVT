@@ -383,6 +383,7 @@
     <Component class="com.dat.Swing.ButtonCustom" name="btnCreate">
       <Properties>
         <Property name="text" type="java.lang.String" value="T&#x1ea1;o"/>
+        <Property name="radius" type="int" value="10"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCreateActionPerformed"/>
@@ -391,6 +392,7 @@
     <Component class="com.dat.Swing.ButtonCustom" name="btnRemove">
       <Properties>
         <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
+        <Property name="radius" type="int" value="10"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoveActionPerformed"/>
@@ -399,6 +401,7 @@
     <Component class="com.dat.Swing.ButtonCustom" name="btnRenew">
       <Properties>
         <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
+        <Property name="radius" type="int" value="10"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRenewActionPerformed"/>
@@ -407,6 +410,7 @@
     <Component class="com.dat.Swing.ButtonCustom" name="btnAdd">
       <Properties>
         <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+        <Property name="radius" type="int" value="10"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
@@ -415,6 +419,7 @@
     <Component class="com.dat.Swing.ButtonCustom" name="btnSearch">
       <Properties>
         <Property name="text" type="java.lang.String" value="Search"/>
+        <Property name="radius" type="int" value="10"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>

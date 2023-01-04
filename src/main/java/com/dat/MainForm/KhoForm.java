@@ -79,6 +79,7 @@ private void fillToTable(){
         lblMaVT.setText("Mã sản phẩm:");
 
         btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        btnSearch.setRadius(10);
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);

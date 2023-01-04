@@ -401,6 +401,7 @@ public class TheOrders extends javax.swing.JPanel {
         lblCheckGia.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
 
         btnCreate.setText("Tạo");
+        btnCreate.setRadius(10);
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCreateActionPerformed(evt);
@@ -408,6 +409,7 @@ public class TheOrders extends javax.swing.JPanel {
         });
 
         btnRemove.setText("Xóa");
+        btnRemove.setRadius(10);
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
@@ -415,6 +417,7 @@ public class TheOrders extends javax.swing.JPanel {
         });
 
         btnRenew.setText("Làm mới");
+        btnRenew.setRadius(10);
         btnRenew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRenewActionPerformed(evt);
@@ -422,6 +425,7 @@ public class TheOrders extends javax.swing.JPanel {
         });
 
         btnAdd.setText("Thêm");
+        btnAdd.setRadius(10);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -429,6 +433,7 @@ public class TheOrders extends javax.swing.JPanel {
         });
 
         btnSearch.setText("Search");
+        btnSearch.setRadius(10);
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchActionPerformed(evt);

@@ -18,8 +18,6 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -112,16 +110,6 @@ public class ListTheOrders extends javax.swing.JPanel {
             return "Chưa thanh toán";
         }
     }
-//    public Date ConvertDate(String str){
-//        Date tmp;
-//        try{
-//            tmp = new SimpleDateFormat("yyyy-MM-dd").parse(str);
-//        }catch(Exception e){
-//                    e.printStackTrace();          
-//        }
-//        return tmp;
-//    }
-    
     public boolean checkNgayXN(String dt)throws Exception{
         Date date_tmp=new SimpleDateFormat("yyyy-MM-dd").parse(dt);
         if (date_tmp.compareTo(dateNgayXacNhan.getDate())>=0||dateNgayXacNhan.getDate().compareTo(new Date())>0){
@@ -337,9 +325,10 @@ public class ListTheOrders extends javax.swing.JPanel {
         );
 
         btnConfirm.setText("Xác nhận");
-        btnConfirm.setBorderColor(new java.awt.Color(0, 102, 255));
+        btnConfirm.setBorderColor(new java.awt.Color(0, 153, 0));
         btnConfirm.setColorClick(new java.awt.Color(0, 153, 255));
         btnConfirm.setColorOver(new java.awt.Color(0, 204, 255));
+        btnConfirm.setRadius(10);
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnConfirmActionPerformed(evt);
@@ -347,9 +336,10 @@ public class ListTheOrders extends javax.swing.JPanel {
         });
 
         btnDelete.setText("Xóa Đơn");
-        btnDelete.setBorderColor(new java.awt.Color(0, 51, 255));
+        btnDelete.setBorderColor(new java.awt.Color(0, 153, 0));
         btnDelete.setColorClick(new java.awt.Color(0, 153, 255));
         btnDelete.setColorOver(new java.awt.Color(0, 204, 255));
+        btnDelete.setRadius(10);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
@@ -370,17 +360,15 @@ public class ListTheOrders extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1)
-                        .addGap(73, 73, 73)
+                        .addGap(65, 65, 65)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(cbxSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(26, 26, 26)
+                        .addComponent(cbxSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -401,14 +389,13 @@ public class ListTheOrders extends javax.swing.JPanel {
                         .addGap(0, 14, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(cbxSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(cbxSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,7 +431,7 @@ public class ListTheOrders extends javax.swing.JPanel {
                 DatHang theorder = listTheOrders.get(row);
                 try{
                     OrderDAO dao = new OrderDAO();
-                    dao.deleteDatHang(theorder.getMaDon());
+                    dao.deleteTheorder(theorder.getMaDon());
                     getListTheOrders();
                     sortEXEC();
                     fillToTableDDH();
@@ -486,7 +473,6 @@ public class ListTheOrders extends javax.swing.JPanel {
                             WarningError.setContent("Ngày bạn chọn không hợp lệ!");
                             WarningError.setVisible(true);
                         }} catch (Exception ex) {
-                        Logger.getLogger(ListTheOrders.class.getName()).log(Level.SEVERE, null, ex);
                     }
                   
                     
