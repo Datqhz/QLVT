@@ -42,7 +42,6 @@ public class UpdateForm extends javax.swing.JPanel {
         try{
             ProductDAO dao = new ProductDAO();
             list=dao.loadListProduct();   
-            SortByNameProduct();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -58,15 +57,15 @@ public class UpdateForm extends javax.swing.JPanel {
         }
         tblModel.fireTableDataChanged();
     }
-    public void SortByNameProduct(){
-        Comparator<Product> com = new Comparator<Product>(){
-            @Override
-            public int compare(Product o1, Product o2){
-                return o1.getTenSp().compareTo(o2.getTenSp());
-            }
-        };   
-        Collections.sort(list, com);
-    }
+//    public void SortByNameProduct(){
+//        Comparator<Product> com = new Comparator<Product>(){
+//            @Override
+//            public int compare(Product o1, Product o2){
+//                return o1.getTenSp().compareTo(o2.getTenSp());
+//            }
+//        };   
+//        Collections.sort(list, com);
+//    }
     
     public void resetForm(){
         txtMasp.setText("");
@@ -323,8 +322,10 @@ public class UpdateForm extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+
         if(chuanhoaMa(txtSearch.getText()).equals("")){
             lblThongbao.setText("*Vui lòng nhập mã sản phẩm cần tìm!");
+            lblThongbao.setForeground(new java.awt.Color(255, 51, 51));
         }else{
             
             try{
@@ -332,21 +333,24 @@ public class UpdateForm extends javax.swing.JPanel {
             temp = dao.findProductByMa(chuanhoaMa(txtSearch.getText()));
             if(temp==null){
                 lblThongbao.setText("*Sản phẩm không tồn tại.");
+                lblThongbao.setForeground(new java.awt.Color(255, 51, 51));
             }else{
-                lblThongbao.setText("");
-                txtMasp.setText(temp.getMaSp());
-                txtTensp.setText(temp.getTenSp());
-                txtDVT.setText(temp.getDonViTinh());
-                txtGia.setText(Integer.toString(temp.getGiaBan()));
-                btnRemove.setEnabled(true);
-                btnUpdate.setEnabled(true);
+               lblThongbao.setText("");
+               txtMasp.setText(temp.getMaSp());
+               txtTensp.setText(temp.getTenSp());
+               txtDVT.setText(temp.getDonViTinh());
+               txtGia.setText(Integer.toString(temp.getGiaBan()));
+               int row = dao.selectRowTable(chuanhoaMa(txtSearch.getText().toUpperCase()));
+               tblSP.setRowSelectionInterval(row,row);
+               txtSearch.setText("");
+               btnRemove.setEnabled(true);
+               btnUpdate.setEnabled(true);
             }
             }catch(Exception e){
                 e.printStackTrace();
             }
             
         }
-        
     }//GEN-LAST:event_btnSearchActionPerformed
 
 

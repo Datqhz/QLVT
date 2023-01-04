@@ -16,14 +16,13 @@ import com.dat.MainForm.MainForm;
 import com.dat.MainForm.TheOrders;
 import com.dat.MainForm.UpdateForm;
 import com.dat.MainForm.KhoForm;
+import com.dat.MainForm.QLNV;
 import com.dat.User.User;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 
 public class Menu extends javax.swing.JPanel {
@@ -57,7 +56,11 @@ public class Menu extends javax.swing.JPanel {
         this.QsO=QsO;
         this.dl=dl;
         this.user = user;
-        
+        lblUser.setText(this.user.getTenNV());
+        if(user.getPermission().equals("owner")){
+            btnQuanly.setEnabled(true);
+        }
+        lblPermision.setText(user.getPermission());
     }
     
     @Override
@@ -70,63 +73,6 @@ public class Menu extends javax.swing.JPanel {
         super.paintComponent(g); 
         
     }
-//    public void addFormToComponent(){
-//        addForm.addComponentListener(new ComponentAdapter() {
-//            public void componentAdded(ComponentEvent e) {
-//                addForm.fillToTable();
-//                addForm.revalidate();
-//                addForm.repaint();
-//            }
-//        });
-//        updateForm.addComponentListener(new ComponentAdapter() {
-//            public void componentAdded(ComponentEvent e) {
-//                updateForm.fillToTable();
-//                updateForm.revalidate();
-//                updateForm.repaint();
-//            }
-//        });
-//        tdh.addComponentListener(new ComponentAdapter() {
-//            public void componentAdded(ComponentEvent e) {
-//                tdh.getListSP();
-//                tdh.fillToTable();
-//                tdh.revalidate();
-//                tdh.repaint();
-//            }
-//        });
-//        dsdh.addComponentListener(new ComponentAdapter() {
-//            public void componentAdded(ComponentEvent e) {
-//                dsdh.getData();
-//                dsdh.fillToTableDH();
-//                dsdh.revalidate();
-//                dsdh.repaint();
-//            }
-//        });
-//        dsdathang.addComponentListener(new ComponentAdapter() {
-//            public void componentAdded(ComponentEvent e) {
-//                dsdathang.getListTheOrders();
-//                dsdathang.fillToTableDDH();
-//                dsdathang.revalidate();
-//                dsdathang.repaint();
-//            }
-//        });
-//        kho.addComponentListener(new ComponentAdapter() {
-//            public void componentAdded(ComponentEvent e) {
-//                
-//                kho.fillToTable();
-//                kho.revalidate();
-//                kho.repaint();
-//            }
-//        });
-//        dathang.addComponentListener(new ComponentAdapter() {
-//            public void componentAdded(ComponentEvent e) {
-//                dathang.getListSP();
-//                dathang.fillToTable();
-//                dathang.revalidate();
-//                dathang.repaint();
-//            }
-//        });
-//        
-//    }
     public void disableSelected(){
         switch (functionIsSelected){
             case 1:
@@ -210,6 +156,12 @@ public class Menu extends javax.swing.JPanel {
         lblWarehouse = new javax.swing.JLabel();
         lblTheOrders = new javax.swing.JLabel();
         lblListTheOrders = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel3 = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        lblPermision = new javax.swing.JLabel();
+        btnQuanly = new com.dat.Swing.ButtonCustom();
         jLabel1 = new javax.swing.JLabel();
 
         jMenuItem1.setText("jMenuItem1");
@@ -229,7 +181,7 @@ public class Menu extends javax.swing.JPanel {
         pnHome.setLayout(pnHomeLayout);
         pnHomeLayout.setHorizontalGroup(
             pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnHomeLayout.setVerticalGroup(
             pnHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,6 +190,8 @@ public class Menu extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        pnMenu.setBackground(new java.awt.Color(51, 204, 255));
 
         lblAdd.setBackground(new java.awt.Color(11, 13, 171));
         lblAdd.setForeground(new java.awt.Color(255, 255, 255));
@@ -319,17 +273,64 @@ public class Menu extends javax.swing.JPanel {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Name:");
+
+        lblUser.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblUser.setForeground(new java.awt.Color(255, 255, 255));
+        lblUser.setText(" ");
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Permision:");
+
+        lblPermision.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        lblPermision.setForeground(new java.awt.Color(255, 255, 255));
+        lblPermision.setText("  ");
+
+        btnQuanly.setForeground(new java.awt.Color(255, 255, 255));
+        btnQuanly.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-admin-settings-male-30 (1).png"))); // NOI18N
+        btnQuanly.setText("Quản lí nhân viên");
+        btnQuanly.setBorderColor(new java.awt.Color(0, 51, 255));
+        btnQuanly.setColor(new java.awt.Color(51, 51, 255));
+        btnQuanly.setColorClick(new java.awt.Color(0, 0, 255));
+        btnQuanly.setColorOver(new java.awt.Color(0, 51, 255));
+        btnQuanly.setEnabled(false);
+        btnQuanly.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnQuanly.setOpaque(true);
+        btnQuanly.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuanlyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnMenuLayout = new javax.swing.GroupLayout(pnMenu);
         pnMenu.setLayout(pnMenuLayout);
         pnMenuLayout.setHorizontalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblUpdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblList, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
             .addComponent(lblCreate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblTheOrders, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(lblWarehouse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(lblListTheOrders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lblListTheOrders, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(lblList, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jSeparator1)
+            .addGroup(pnMenuLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnMenuLayout.createSequentialGroup()
+                        .addGroup(pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblPermision, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnQuanly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         pnMenuLayout.setVerticalGroup(
             pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -348,7 +349,19 @@ public class Menu extends javax.swing.JPanel {
                 .addComponent(lblTheOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblListTheOrders, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnQuanly, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
+                .addGroup(pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUser)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnMenuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPermision)
+                    .addComponent(jLabel5))
+                .addGap(31, 31, 31))
         );
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -437,17 +450,27 @@ public class Menu extends javax.swing.JPanel {
         main.showForm(dsdathang);
     }//GEN-LAST:event_lblListTheOrdersMouseClicked
 
+    private void btnQuanlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanlyActionPerformed
+        main.showForm(new QLNV());
+    }//GEN-LAST:event_btnQuanlyActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.dat.Swing.ButtonCustom btnQuanly;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblAdd;
     private javax.swing.JLabel lblCreate;
     private javax.swing.JLabel lblList;
     private javax.swing.JLabel lblListTheOrders;
+    private javax.swing.JLabel lblPermision;
     private javax.swing.JLabel lblTheOrders;
     private javax.swing.JLabel lblUpdate;
+    private javax.swing.JLabel lblUser;
     private javax.swing.JLabel lblWarehouse;
     private javax.swing.JPanel pnHome;
     private javax.swing.JPanel pnMenu;

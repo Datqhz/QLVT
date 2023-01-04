@@ -84,7 +84,7 @@ public class OrderDAO {
         }
 
     }
-     
+     //thêm đơn hàng
      public void addOrder(DonHang order)throws Exception{
          String sql = "insert into PHIEUXUAT(MAPX,NGAY,HOTENKH,TRANGTHAI,MANV) values (?,?,?,?,?)";
          String sql1 = "insert into CTPX(MAPX,MAVT,SOLUONG,DONGIA) values (?,?,?,?)";
@@ -224,7 +224,7 @@ public class OrderDAO {
         }
 
     }
-     //thêm đơn hàng
+     
      
      
      //tạo đơn đặt hàng

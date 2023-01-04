@@ -162,7 +162,7 @@ public class TheOrders extends javax.swing.JPanel {
         for(CTSP ct: listCTSP){
             if(ct.getMaSP().equals(prd.getMaSp())){
                     ct.setSoLuong(ct.getSoLuong() + Integer.parseInt(txtSoLuong.getText()));
-                   
+                  
                     return true;
             }
         }
