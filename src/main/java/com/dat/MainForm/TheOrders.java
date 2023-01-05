@@ -63,7 +63,7 @@ public class TheOrders extends javax.swing.JPanel {
     public String chuanhoaMa(String ma){
         return ma.replaceAll(" ", "").toUpperCase();
     }
-    private void getListSP(){
+    public void getListSP(){
         try{
             ProductDAO dao = new ProductDAO();
             listSP=dao.loadListProduct();   
@@ -80,7 +80,7 @@ public class TheOrders extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    private void fillToTable(){
+    public void fillToTable(){
         tblModelSP.setRowCount(0);
         
         for(Product prd : listSP){
@@ -162,7 +162,7 @@ public class TheOrders extends javax.swing.JPanel {
         for(CTSP ct: listCTSP){
             if(ct.getMaSP().equals(prd.getMaSp())){
                     ct.setSoLuong(ct.getSoLuong() + Integer.parseInt(txtSoLuong.getText()));
-                   
+                  
                     return true;
             }
         }

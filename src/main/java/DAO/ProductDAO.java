@@ -122,7 +122,7 @@ public class ProductDAO {
     }
     
     
-    // set select cho sản phẩm được tìm thấy
+    // trả về index trên bảng cho sản phẩm được tìm thấy
     public int selectRowTable(String msp) throws Exception{
         Product temp = findProductByMa(msp);
         if(temp!= null){

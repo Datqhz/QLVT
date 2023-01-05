@@ -84,7 +84,7 @@ public class ListTheOrders extends javax.swing.JPanel {
         }
         return total;
     }
-    private void getListTheOrders(){
+    public void getListTheOrders(){
         try{
             OrderDAO dao = new OrderDAO();
             listTheOrders= dao.loadListDatHang();   

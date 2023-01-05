@@ -25,7 +25,7 @@ public void initTable(){
         
     }
 //làm mới bảng
-private void fillToTable(){
+public void fillToTable(){
         try{
             ProductDAO dao = new ProductDAO();
             list=dao.loadListProduct();   

@@ -55,7 +55,7 @@ public class Add extends javax.swing.JPanel {
         return prd;
     }
     //làm mới bảng
-    private void fillToTable(){
+    public void fillToTable(){
         try{
             ProductDAO dao = new ProductDAO();
             list=dao.loadListProduct();   
@@ -77,6 +77,8 @@ public class Add extends javax.swing.JPanel {
         model.fireTableDataChanged();
     }
     
+    
+    //reset form 
     public void ResetForm(){
         txtMasp.setText("");
         txtTensp.setText("");
@@ -84,6 +86,8 @@ public class Add extends javax.swing.JPanel {
         txtGia.setText("");
     }
     
+    
+    //sắp xếp sản phẩm theo tên
     public void SortByNameProduct(){
         Comparator<Product> com = new Comparator<Product>(){
             @Override
