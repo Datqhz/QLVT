@@ -371,7 +371,7 @@ public class Add extends javax.swing.JPanel {
                 WarningError.setVisible(true);
             }else{
                 Product sp = getInfoProduct();
-                Qs.setContent(sp.toString(),"Bạn có muốn thêm sản phẩm không?");
+                Qs.setContent("Thông tin sản phẩm:",sp.toString(),"Bạn có muốn thêm sản phẩm không?");
                 Qs.setVisible(true);
                 if(Qs.isYn()){
                     ProductDAO dao =new ProductDAO();

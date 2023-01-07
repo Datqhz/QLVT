@@ -76,18 +76,11 @@
                                           <Component id="btnSearch" min="-2" pref="33" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="lblThongBao" alignment="0" min="-2" pref="187" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="txtName" pref="198" max="32767" attributes="0"/>
-                                              <Component id="txtAccount" pref="198" max="32767" attributes="0"/>
-                                              <Component id="txtPass" pref="198" max="32767" attributes="0"/>
-                                              <Component id="txtMaNV" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lblIconmnv" pref="63" max="32767" attributes="0"/>
-                                              <Component id="lblIconname" max="32767" attributes="0"/>
-                                          </Group>
+                                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="txtName" pref="198" max="32767" attributes="0"/>
+                                          <Component id="txtAccount" pref="198" max="32767" attributes="0"/>
+                                          <Component id="txtPass" pref="198" max="32767" attributes="0"/>
+                                          <Component id="txtMaNV" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -134,13 +127,11 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtMaNV" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblIconmnv" alignment="1" min="-2" pref="14" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblIconname" alignment="1" min="-2" pref="22" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -332,20 +323,6 @@
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblThongBao">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblIconmnv">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="10" style="0"/>
-            </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblIconname">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="10" style="0"/>

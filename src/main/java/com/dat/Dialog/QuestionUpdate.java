@@ -20,7 +20,9 @@ public class QuestionUpdate extends javax.swing.JDialog {
         this.yn = yn;
     }
     
-    public void setContent(String content,String contentNew){
+    public void setContent(String content,String contentNew, String title1, String title2){
+        lblTitle1.setText(title1);
+        lblTitle2.setText(title2);
         txtInfoOld.setText(content);
         txtInfoNew.setText(contentNew);
         setBackground(Color.white);
@@ -31,13 +33,13 @@ public class QuestionUpdate extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lblTitle1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtInfoOld = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtInfoNew = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        lblTitle2 = new javax.swing.JLabel();
         btnYes = new com.dat.Swing.ButtonCustom();
         btnNo = new com.dat.Swing.ButtonCustom();
 
@@ -46,7 +48,7 @@ public class QuestionUpdate extends javax.swing.JDialog {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/communication.png"))); // NOI18N
         jLabel1.setText("jLabel1");
 
-        jLabel2.setText("Thông tin sản phẩm");
+        lblTitle1.setText("Thông tin sản phẩm");
 
         txtInfoOld.setEditable(false);
         txtInfoOld.setColumns(20);
@@ -61,7 +63,7 @@ public class QuestionUpdate extends javax.swing.JDialog {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-right-arrow-36.png"))); // NOI18N
         jLabel3.setText("jLabel3");
 
-        jLabel4.setText("Bạn có muốn cập nhật thông tin sản phẩm không?");
+        lblTitle2.setText("Bạn có muốn cập nhật thông tin sản phẩm không?");
 
         btnYes.setText("Có");
         btnYes.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +98,7 @@ public class QuestionUpdate extends javax.swing.JDialog {
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(191, 191, 191)
-                                .addComponent(jLabel2)))
+                                .addComponent(lblTitle1)))
                         .addContainerGap(45, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -107,7 +109,7 @@ public class QuestionUpdate extends javax.swing.JDialog {
                                 .addComponent(btnNo, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(148, 148, 148))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lblTitle2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(158, 158, 158))))))
         );
         layout.setVerticalGroup(
@@ -119,7 +121,7 @@ public class QuestionUpdate extends javax.swing.JDialog {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel2)
+                        .addComponent(lblTitle1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -128,7 +130,7 @@ public class QuestionUpdate extends javax.swing.JDialog {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
+                .addComponent(lblTitle2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnYes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -155,11 +157,11 @@ public class QuestionUpdate extends javax.swing.JDialog {
     private com.dat.Swing.ButtonCustom btnNo;
     private com.dat.Swing.ButtonCustom btnYes;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblTitle1;
+    private javax.swing.JLabel lblTitle2;
     private javax.swing.JTextArea txtInfoNew;
     private javax.swing.JTextArea txtInfoOld;
     // End of variables declaration//GEN-END:variables

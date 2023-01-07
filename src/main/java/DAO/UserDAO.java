@@ -60,17 +60,17 @@ public class UserDAO {
         return null;
     }
      //thêm sản phẩm
-    public boolean addUser(User prd) throws Exception{
+    public boolean addUser(User user) throws Exception{
         String sql = "insert into NHANVIEN(MANV,TENNV,ACC,PASS,PER) values (?,?,?,?,?)";
         try (
                 Connection con = DatabaseHelper.openConnection();  
                 PreparedStatement pstm = con.prepareStatement(sql);) 
         {
-            pstm.setString(1, prd.getMaNV());
-            pstm.setString(2, prd.getTenNV());
-            pstm.setString(3, prd.getAccount());
-            pstm.setString(4, prd.getPassword());
-            pstm.setString(5, prd.getPermission());
+            pstm.setString(1, user.getMaNV());
+            pstm.setString(2, user.getTenNV());
+            pstm.setString(3, user.getAccount());
+            pstm.setString(4, user.getPassword());
+            pstm.setString(5, user.getPermission());
             
             return pstm.executeUpdate() > 0;
         }
@@ -78,18 +78,18 @@ public class UserDAO {
     
     
     // cập nhật thông tin sản phẩm
-    public boolean updateUser(User prd) throws Exception{
+    public boolean updateUser(User user) throws Exception{
         String sql = "update NHANVIEN set TENNV=?,ACC=?,PASS=?,PER=? where MANV=?";
          try (
                 Connection con = DatabaseHelper.openConnection();  
                 PreparedStatement pstm = con.prepareStatement(sql);) 
         {
             
-            pstm.setString(1, prd.getTenNV());
-            pstm.setString(2, prd.getAccount());
-            pstm.setString(3, prd.getPassword());
-            //pstm.setString(4, prd.getPermission());
-            pstm.setString(5, prd.getMaNV());
+            pstm.setString(1, user.getTenNV());
+            pstm.setString(2, user.getAccount());
+            pstm.setString(3, user.getPassword());
+            //pstm.setString(4, user.getPermission());
+            pstm.setString(5, user.getMaNV());
             return pstm.executeUpdate() > 0;
         }
     }

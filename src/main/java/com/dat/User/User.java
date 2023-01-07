@@ -61,5 +61,7 @@ public class User {
         this.permission = permission;
     }
     
-    
+    public String toString(){
+        return "Mã nhân viên: " + maNV + "/nTên nhân viên: " + tenNV + "/nAccount: " + account + "/nPassword: " + password + "/nPermission: "+ permission;
+    }
 }

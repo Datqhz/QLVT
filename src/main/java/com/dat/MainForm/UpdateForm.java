@@ -275,7 +275,7 @@ public class UpdateForm extends javax.swing.JPanel {
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
 
-        Qs.setContent(temp.toString(),"Bạn có muốn xóa sản phẩm không?");
+        Qs.setContent("Thông tin sản phẩm:",temp.toString(),"Bạn có muốn xóa sản phẩm không?");
         Qs.setVisible(true);
         if(Qs.isYn()){
             try{
@@ -302,7 +302,7 @@ public class UpdateForm extends javax.swing.JPanel {
         prd.setSlTon(temp.getSlTon());
         prd.setGiaBan(Integer.parseInt(txtGia.getText()));
 
-        QsU.setContent(temp.toString(),prd.toString());
+        QsU.setContent(temp.toString(),prd.toString(),"Thông tin sản phẩm:", "Bạn có muốn cập nhật thông tin sản phẩm không?");
         QsU.setVisible(true);
         if(QsU.isYn()){
             try{

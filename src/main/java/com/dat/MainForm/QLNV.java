@@ -19,7 +19,9 @@ public class QLNV extends javax.swing.JPanel {
     Success success;
     QuestionUpdate QsU;
     private User temp;
-    boolean addStatus = false;
+    private int rowSelect;
+    
+    
     public QLNV(Warning WarningError,Question Qs, Success sc, QuestionUpdate QsU) {
         initComponents();
         setOpaque(false);
@@ -109,13 +111,28 @@ public class QLNV extends javax.swing.JPanel {
     
     public User getInfoUser(){
          
-        User prd = new User();
-        prd.setMaNV(chuanhoaMa(txtMaNV.getText()));
-        prd.setTenNV(chuanhoaTennv(txtName.getText()));
-        //prd.setPermission(chuanhoaMa(getText()).equals(""))
-        prd.setAccount(chuanhoaMa(txtAccount.getText()));
-        prd.setPassword(txtPass.getText());
-        return prd;
+        User user = new User();
+        user.setMaNV(chuanhoaMa(txtMaNV.getText()));
+        user.setTenNV(chuanhoaTennv(txtName.getText()));
+        user.setPermission("employee");
+        user.setAccount(chuanhoaMa(txtAccount.getText()));
+        user.setPassword(txtPass.getText());
+        return user;
+    }
+    
+    public User searchUser(String manv){
+        rowSelect = 0;
+        for( User user: users){
+            rowSelect++;
+            if(user.getMaNV().equals(manv))
+                return user;
+        }
+        return null;
+    }
+    
+    public boolean checkStatusAdd(){
+        if(chuanhoaMa(txtMaNV.getText()).equals("")||chuanhoaTennv(txtName.getText()).equals("")||chuanhoaMa(txtAccount.getText()).equals("")||chuanhoaMa(txtPass.getText()).equals("")) return false;
+        return true;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -142,8 +159,6 @@ public class QLNV extends javax.swing.JPanel {
         txtSearch = new javax.swing.JTextField();
         btnSearch = new com.dat.Swing.ButtonCustom();
         lblThongBao = new javax.swing.JLabel();
-        lblIconmnv = new javax.swing.JLabel();
-        lblIconname = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -235,10 +250,6 @@ public class QLNV extends javax.swing.JPanel {
 
         lblThongBao.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
 
-        lblIconmnv.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-
-        lblIconname.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -276,16 +287,11 @@ public class QLNV extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(lblThongBao, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                                            .addComponent(txtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                                            .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                                            .addComponent(txtMaNV))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(lblIconmnv, javax.swing.GroupLayout.DEFAULT_SIZE, 63, Short.MAX_VALUE)
-                                            .addComponent(lblIconname, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtName, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                        .addComponent(txtAccount, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                        .addComponent(txtPass, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                                        .addComponent(txtMaNV)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,13 +322,11 @@ public class QLNV extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblIconmnv, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtMaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblIconname, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -366,26 +370,27 @@ public class QLNV extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        temp= null;
         if(chuanhoaMa(txtSearch.getText()).equals("")){
             lblThongBao.setText("*Vui lòng nhập mã nhân viên cần tìm!");
             lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
         }else{
-            
-            try{
-            UserDAO dao = new UserDAO();
-            User temp = dao.findUser(chuanhoaMa(txtSearch.getText()));
+            temp = searchUser(chuanhoaMa(txtSearch.getText()));
             if(temp==null){
                 lblThongBao.setText("*Nhân viên không tồn tại.");
                 lblThongBao.setForeground(new java.awt.Color(255, 51, 51));
             }else{
                lblThongBao.setText("");
-               int row = selectRowTable(temp);
-               tblNhanvien.setRowSelectionInterval(row,row);
+               tblNhanvien.setRowSelectionInterval(rowSelect-1,rowSelect-1);
                txtSearch.setText("");
+               txtMaNV.setText(tblNhanvien.getValueAt(rowSelect-1,0).toString());
+               txtName.setText(tblNhanvien.getValueAt(rowSelect-1,1).toString());
+               txtAccount.setText(tblNhanvien.getValueAt(rowSelect-1,2).toString());
+               txtPass.setText(tblNhanvien.getValueAt(rowSelect-1,3).toString());
                btnAdd.setEnabled(true);
-            }
-            }catch(Exception e){
-                e.printStackTrace();
+               btnRemove.setEnabled(true);
+               btnUpdate.setEnabled(true);
+               btnRenew.setEnabled(true);
             }
             
         }
@@ -403,7 +408,7 @@ public class QLNV extends javax.swing.JPanel {
             txtName.setText(tblNhanvien.getValueAt(row,1).toString());
             txtAccount.setText(tblNhanvien.getValueAt(row,2).toString());
             txtPass.setText(tblNhanvien.getValueAt(row,3).toString());
-             btnAdd.setEnabled(true);
+            btnAdd.setEnabled(true);
             btnRemove.setEnabled(true);
             btnUpdate.setEnabled(true);
             btnRenew.setEnabled(true);
@@ -413,23 +418,21 @@ public class QLNV extends javax.swing.JPanel {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         try{
-            if(addStatus == false){
+            if(!checkStatusAdd()){
                 WarningError.setContent("Vui lòng điền đủ thông tin yêu cầu!");
                 WarningError.setVisible(true);
             }else{
                 User nv = getInfoUser();
-                Qs.setContent(nv.toString(),"Bạn có muốn thêm nhân viên không?");
+                Qs.setContent("Thông tin nhân viên:",nv.toString(),"Bạn có muốn thêm nhân viên không?");
                 Qs.setVisible(true);
                 if(Qs.isYn()){
                     UserDAO dao =new UserDAO();
                     dao.addUser(nv);
+                    loadNV();
                     resetForm();
-                    lblIconmnv.setIcon(null);
-                    lblIconname.setIcon(null);
                     fillToTable();
                     success.setContent("Bạn đã thêm nhân viên thành công.");
                     success.setVisible(true);
-                    addStatus=false;
                 }
             }
             
@@ -439,7 +442,7 @@ public class QLNV extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-        Qs.setContent(temp.toString(),"Bạn có muốn xóa nhân viên không?");
+        Qs.setContent("Thông tin nhân viên:",temp.toString(),"Bạn có muốn xóa nhân viên không?");
         Qs.setVisible(true);
         if(Qs.isYn()){
             try{
@@ -447,12 +450,13 @@ public class QLNV extends javax.swing.JPanel {
                 dao.deleteUser(txtMaNV.getText());
                 success.setContent("Bạn đã xóa nhân viên thành công.");
                 success.setVisible(true);
+                loadNV();
                 resetForm();
                 fillToTable();
                 btnAdd.setEnabled(false);
-            btnRemove.setEnabled(false);
-            btnUpdate.setEnabled(false);
-            btnRenew.setEnabled(false);
+                btnRemove.setEnabled(false);
+                btnUpdate.setEnabled(false);
+                btnRenew.setEnabled(false);
                 tblNhanvien.setRowSelectionInterval(0,0);
             }catch(Exception e){
                 
@@ -461,22 +465,23 @@ public class QLNV extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        User prd = new User();
-        prd.setMaNV(txtMaNV.getText());
-        prd.setTenNV(txtName.getText());
-        prd.setAccount(txtAccount.getText());
-        prd.setPassword(txtPass.getText());
+        User user = new User();
+        user.setMaNV(txtMaNV.getText());
+        user.setTenNV(txtName.getText());
+        user.setAccount(txtAccount.getText());
+        user.setPassword(txtPass.getText());
 
-        QsU.setContent(temp.toString(),prd.toString());
+        QsU.setContent(temp.toString(),user.toString(), "Thông tin nhân viên:", "Bạn có muốn cập nhật thông tin nhân viên không?");
         
         QsU.setVisible(true);
         if(QsU.isYn()){
             try{
                 UserDAO dao = new UserDAO();
-                dao.updateUser(prd);
-                success.setContent("Bạn đã thêm thông tin nhân viên thành công.");
+                dao.updateUser(user);
+                success.setContent("Bạn đã cập nhật thông tin nhân viên thành công.");
                 success.setVisible(true);
                 resetForm();
+                loadNV();
                 fillToTable();
                 btnAdd.setEnabled(false);
                 btnRemove.setEnabled(false);
@@ -509,8 +514,6 @@ public class QLNV extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblIconmnv;
-    private javax.swing.JLabel lblIconname;
     private javax.swing.JLabel lblThongBao;
     private javax.swing.JTable tblNhanvien;
     private javax.swing.JTextField txtAccount;
