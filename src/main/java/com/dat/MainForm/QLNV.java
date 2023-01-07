@@ -7,6 +7,8 @@ import com.dat.Dialog.QuestionUpdate;
 import com.dat.Dialog.Success;
 import com.dat.Dialog.Warning;
 import com.dat.User.User;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,7 +29,7 @@ public class QLNV extends javax.swing.JPanel {
         setOpaque(false);
         this.WarningError = WarningError;
         this.Qs = Qs;
-        this.success = success;
+        this.success = sc;
         this.QsU = QsU;
         initTable();
         
@@ -68,13 +70,13 @@ public class QLNV extends javax.swing.JPanel {
        }
    }
    //Kiểm tra trùng tên nhân viên
-    public boolean checkEqualName(String name){
-        User  t = this.users.stream().filter(pr -> pr.getTenNV().equals(name)).findFirst().orElse(null);
+    public boolean checkEqualAccount(String account){
+        User  t = this.users.stream().filter(pr -> pr.getTenNV().equals(account)).findFirst().orElse(null);
         if(t == null)return false;
         return true;
     }
     //Kiểm tra trùng mã nhân viên
-    public boolean checkEqualMasp(String manv){
+    public boolean checkEqualMaNV(String manv){
         User  t = this.users.stream().filter(pr -> pr.getMaNV().equals(manv)).findFirst().orElse(null);
         if(t == null)return false;
         return true;
@@ -89,24 +91,17 @@ public class QLNV extends javax.swing.JPanel {
    public String chuanhoaMa(String ma){
         return ma.replaceAll(" ", "").toUpperCase();
     }
-   public int selectRowTable(User user){
-        if(user!= null){
-            int i = 0;
-            for(User or : users){
-                boolean check = or.getMaNV().equals(user.getMaNV());
-                if(check){
-                    return i;
-                }
-                i++;
-            }
-        }
-        return -1;
-    }
    public void resetForm(){
         txtMaNV.setText("");
         txtName.setText("");
         txtAccount.setText("");
         txtPass.setText("");
+        tblNhanvien.setRowSelectionInterval(0,0);
+        btnAdd.setEnabled(false);
+        btnRemove.setEnabled(false);
+        btnUpdate.setEnabled(false);
+        btnRenew.setEnabled(false);
+        
     }
     
     public User getInfoUser(){
@@ -115,7 +110,7 @@ public class QLNV extends javax.swing.JPanel {
         user.setMaNV(chuanhoaMa(txtMaNV.getText()));
         user.setTenNV(chuanhoaTennv(txtName.getText()));
         user.setPermission("employee");
-        user.setAccount(chuanhoaMa(txtAccount.getText()));
+        user.setAccount(txtAccount.getText().replace(" ",""));
         user.setPassword(txtPass.getText());
         return user;
     }
@@ -133,6 +128,17 @@ public class QLNV extends javax.swing.JPanel {
     public boolean checkStatusAdd(){
         if(chuanhoaMa(txtMaNV.getText()).equals("")||chuanhoaTennv(txtName.getText()).equals("")||chuanhoaMa(txtAccount.getText()).equals("")||chuanhoaMa(txtPass.getText()).equals("")) return false;
         return true;
+    }
+    
+    public void sortByName(){
+        
+         Comparator<User> com = new Comparator<User>(){
+            @Override
+            public int compare(User o1, User o2){
+                return o1.getTenNV().compareTo(o2.getTenNV());
+            }
+        };   
+        Collections.sort(users, com);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -152,7 +158,7 @@ public class QLNV extends javax.swing.JPanel {
         txtName = new javax.swing.JTextField();
         txtAccount = new javax.swing.JTextField();
         txtPass = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxSort = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtMaNV = new javax.swing.JTextField();
@@ -224,11 +230,40 @@ public class QLNV extends javax.swing.JPanel {
 
         jLabel4.setText("Password:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã nhân viên", "Tên" }));
+        txtName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNameFocusGained(evt);
+            }
+        });
+
+        txtAccount.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtAccountFocusGained(evt);
+            }
+        });
+
+        txtPass.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtPassFocusGained(evt);
+            }
+        });
+
+        cbxSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã nhân viên", "Tên" }));
+        cbxSort.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxSortItemStateChanged(evt);
+            }
+        });
 
         jLabel5.setText("Danh sách nhân viên:");
 
         jLabel6.setText("Sắp xếp:");
+
+        txtMaNV.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtMaNVFocusGained(evt);
+            }
+        });
 
         txtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -267,7 +302,7 @@ public class QLNV extends javax.swing.JPanel {
                                 .addGap(76, 76, 76)
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cbxSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(34, 34, 34)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -349,7 +384,7 @@ public class QLNV extends javax.swing.JPanel {
                         .addComponent(btnRenew, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -421,6 +456,12 @@ public class QLNV extends javax.swing.JPanel {
             if(!checkStatusAdd()){
                 WarningError.setContent("Vui lòng điền đủ thông tin yêu cầu!");
                 WarningError.setVisible(true);
+            }else if(checkEqualMaNV(chuanhoaMa(txtMaNV.getText()))){
+                WarningError.setContent("Mã nhân viên đã tồn tại!");
+                WarningError.setVisible(true);
+            }else if(checkEqualAccount(chuanhoaMa(txtAccount.getText()))){
+                WarningError.setContent("Account đã tồn tại!");
+                WarningError.setVisible(true);
             }else{
                 User nv = getInfoUser();
                 Qs.setContent("Thông tin nhân viên:",nv.toString(),"Bạn có muốn thêm nhân viên không?");
@@ -428,11 +469,12 @@ public class QLNV extends javax.swing.JPanel {
                 if(Qs.isYn()){
                     UserDAO dao =new UserDAO();
                     dao.addUser(nv);
+                    success.setContent("Bạn đã thêm nhân viên thành công.");
+                    success.setVisible(true);
                     loadNV();
                     resetForm();
                     fillToTable();
-                    success.setContent("Bạn đã thêm nhân viên thành công.");
-                    success.setVisible(true);
+                    
                 }
             }
             
@@ -465,38 +507,80 @@ public class QLNV extends javax.swing.JPanel {
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        User user = new User();
-        user.setMaNV(txtMaNV.getText());
-        user.setTenNV(txtName.getText());
-        user.setAccount(txtAccount.getText());
-        user.setPassword(txtPass.getText());
-
-        QsU.setContent(temp.toString(),user.toString(), "Thông tin nhân viên:", "Bạn có muốn cập nhật thông tin nhân viên không?");
         
-        QsU.setVisible(true);
-        if(QsU.isYn()){
-            try{
-                UserDAO dao = new UserDAO();
-                dao.updateUser(user);
-                success.setContent("Bạn đã cập nhật thông tin nhân viên thành công.");
-                success.setVisible(true);
-                resetForm();
-                loadNV();
-                fillToTable();
-                btnAdd.setEnabled(false);
-                btnRemove.setEnabled(false);
-                btnUpdate.setEnabled(false);
-                btnRenew.setEnabled(false);
-                tblNhanvien.setRowSelectionInterval(0,0);
-            }catch(Exception e){
-                
-            }
+        if(!checkStatusAdd()){
+                WarningError.setContent("Vui lòng điền đủ thông tin yêu cầu!");
+                WarningError.setVisible(true);
+            }else if(checkEqualAccount(chuanhoaMa(txtAccount.getText()))){
+                WarningError.setContent("Account đã tồn tại!");
+                WarningError.setVisible(true);
+            }else{
+                User user = getInfoUser();
+                QsU.setContent(temp.toString(),user.toString(), "Thông tin nhân viên:", "Bạn có muốn cập nhật thông tin nhân viên không?");
+        
+                QsU.setVisible(true);
+                if(QsU.isYn()){
+                    try{
+                        UserDAO dao = new UserDAO();
+                        dao.updateUser(user);
+                        success.setContent("Bạn đã cập nhật thông tin nhân viên thành công.");
+                        success.setVisible(true);
+                        resetForm();
+                        loadNV();
+                        fillToTable();
+                        btnAdd.setEnabled(false);
+                        btnRemove.setEnabled(false);
+                        btnUpdate.setEnabled(false);
+                        btnRenew.setEnabled(false);
+                        tblNhanvien.setRowSelectionInterval(0,0);
+                    }catch(Exception e){
+
+                    } 
+                }
+       
         }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnRenewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRenewActionPerformed
         resetForm();
     }//GEN-LAST:event_btnRenewActionPerformed
+
+    private void txtMaNVFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtMaNVFocusGained
+        btnAdd.setEnabled(true);
+        btnRemove.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        btnRenew.setEnabled(true);
+    }//GEN-LAST:event_txtMaNVFocusGained
+
+    private void txtNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNameFocusGained
+        btnAdd.setEnabled(true);
+        btnRemove.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        btnRenew.setEnabled(true);
+    }//GEN-LAST:event_txtNameFocusGained
+
+    private void txtAccountFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAccountFocusGained
+        btnAdd.setEnabled(true);
+        btnRemove.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        btnRenew.setEnabled(true);
+    }//GEN-LAST:event_txtAccountFocusGained
+
+    private void txtPassFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPassFocusGained
+        btnAdd.setEnabled(true);
+        btnRemove.setEnabled(true);
+        btnUpdate.setEnabled(true);
+        btnRenew.setEnabled(true);
+    }//GEN-LAST:event_txtPassFocusGained
+
+    private void cbxSortItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxSortItemStateChanged
+        String choose = cbxSort.getSelectedItem().toString();
+        if(choose.equals("Tên")){
+            sortByName();
+            fillToTable();
+            resetForm();
+        }
+    }//GEN-LAST:event_cbxSortItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -505,7 +589,7 @@ public class QLNV extends javax.swing.JPanel {
     private com.dat.Swing.ButtonCustom btnRenew;
     private com.dat.Swing.ButtonCustom btnSearch;
     private com.dat.Swing.ButtonCustom btnUpdate;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbxSort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

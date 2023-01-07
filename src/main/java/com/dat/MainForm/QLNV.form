@@ -50,7 +50,7 @@
                                   <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
                                   <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbxSort" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -164,7 +164,7 @@
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbxSort" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel5" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
@@ -269,17 +269,29 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtName">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtNameFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtAccount">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtAccountFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPass">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtPassFocusGained"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="cbxSort">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;M&#xe3; nh&#xe2;n vi&#xea;n&quot;, &quot;T&#xea;n&quot; })" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbxSortItemStateChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -295,6 +307,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtMaNV">
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtMaNVFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSearch">
           <Events>

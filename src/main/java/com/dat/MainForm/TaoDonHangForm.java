@@ -587,6 +587,7 @@ public class TaoDonHangForm extends javax.swing.JPanel {
                 fillToTableDH();
                 txtSoLuong.setText("");
                 lblTotal.setText(convertMoney(updateTotalCost()));
+                btnAdd.setEnabled(false);
             }
         }else {
             WarningError.setContent("Vui lòng nhập đủ thông tin yêu cầu.");

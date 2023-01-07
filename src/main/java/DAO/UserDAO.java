@@ -88,7 +88,7 @@ public class UserDAO {
             pstm.setString(1, user.getTenNV());
             pstm.setString(2, user.getAccount());
             pstm.setString(3, user.getPassword());
-            //pstm.setString(4, user.getPermission());
+            pstm.setString(4, user.getPermission());
             pstm.setString(5, user.getMaNV());
             return pstm.executeUpdate() > 0;
         }

@@ -7,8 +7,6 @@ import com.dat.Dialog.QuestionUpdate;
 import com.dat.Dialog.Success;
 import com.dat.Product.Product;
 import java.text.NumberFormat;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import javax.swing.table.DefaultTableModel;
@@ -57,16 +55,6 @@ public class UpdateForm extends javax.swing.JPanel {
         }
         tblModel.fireTableDataChanged();
     }
-//    public void SortByNameProduct(){
-//        Comparator<Product> com = new Comparator<Product>(){
-//            @Override
-//            public int compare(Product o1, Product o2){
-//                return o1.getTenSp().compareTo(o2.getTenSp());
-//            }
-//        };   
-//        Collections.sort(list, com);
-//    }
-    
     public void resetForm(){
         txtMasp.setText("");
         txtTensp.setText("");

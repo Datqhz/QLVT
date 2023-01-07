@@ -292,11 +292,6 @@ public class DSDonHangForm extends javax.swing.JPanel {
                 cbxSortItemStateChanged(evt);
             }
         });
-        cbxSort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxSortActionPerformed(evt);
-            }
-        });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-sort-alpha-up-24.png"))); // NOI18N
         jLabel5.setText("Sắp xếp");
@@ -422,6 +417,7 @@ public class DSDonHangForm extends javax.swing.JPanel {
     }//GEN-LAST:event_cbxSortItemStateChanged
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+
         if(chuanhoaMa(txtSearch.getText()).equals("")){
             lblTB.setText("*Vui lòng nhập đơn cần tìm!");
             lblTB.setForeground(new java.awt.Color(255, 51, 51));
@@ -500,10 +496,6 @@ public class DSDonHangForm extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void cbxSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSortActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxSortActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
