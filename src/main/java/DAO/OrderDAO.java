@@ -300,8 +300,30 @@ public class OrderDAO {
           
         }
      }
-
+    // Tìm kiếm đơn đặt hàng
+     public Order find(String madon) throws Exception{
+        String sql = "select * from DATHANG where MASODDH= ?";
+        try (
+            Connection con = DatabaseHelper.openConnection();  
+            PreparedStatement pstm = con.prepareStatement(sql) ;
+           )
+        {
+            pstm.setString(1, madon);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                DatHang pr = new DatHang();
+                pr.setMaDon(rs.getString(1).replaceAll(" ", ""));
+                pr.setNhaCungCap(rs.getString(2));
+                pr.setDate(rs.getString(3));
+                pr.setListSP(loadCTDDH(madon));
+                pr.setTT(rs.getBoolean(4));
+                pr.setMaNV(rs.getString(5));
+                return pr;
+            }
      
+        }
+        return null;
+    }
     
     
     

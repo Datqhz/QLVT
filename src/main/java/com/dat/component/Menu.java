@@ -451,7 +451,7 @@ public class Menu extends javax.swing.JPanel {
     }//GEN-LAST:event_lblListTheOrdersMouseClicked
 
     private void btnQuanlyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuanlyActionPerformed
-        main.showForm(new QLNV());
+        main.showForm(new QLNV(WarningError,Qs,sc,QsU));
     }//GEN-LAST:event_btnQuanlyActionPerformed
 
 

@@ -37,19 +37,19 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtSoLuong" min="-2" pref="52" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" pref="59" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtGiaBan" min="-2" pref="90" max="-2" attributes="0"/>
-                                          <Component id="lblCheckGia" min="-2" pref="167" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
                               </Group>
                               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="btnSearch" min="-2" max="-2" attributes="0"/>
                                   <Component id="btnAdd" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel2" min="-2" pref="59" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="txtGiaBan" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <Component id="lblCheckGia" min="-2" pref="214" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
